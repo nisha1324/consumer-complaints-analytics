@@ -254,6 +254,7 @@ def build_report(out: Path = RESULTS) -> str:
     w_ratio = wk.assign(r=wk["complaints"] / wk[["prior_median", "next_median"]].max(axis=1))
     wmax = w_ratio.loc[w_ratio["r"].idxmax()]
     old_total = int(summ["complaints"].sum())
+    moved_sub = int(summ.loc[summ["product"].isin(T.CURRENT_PRODUCTS), "complaints"].sum())
     total = int(pm["complaints"].sum())
     d = drv.set_index("current_product")
     dc = d.loc[T.DEBT_COLLECTION]
@@ -295,7 +296,7 @@ def build_report(out: Path = RESULTS) -> str:
         f"{n(dc['companies_up'])} companies had more complaints a month and {n(dc['companies_down'])} fewer, and the "
         f"largest single contributor added {pct(dc['lead_share'], 0)} of the rise.")
     add(f"- **No spike falls inside the FY2026 snapshot**, by month ({in_fy26} of {len(sp)}) or by week (none of "
-        f"{len(wk)} product-weeks), and that holds under every threshold tried. So the FY2026 product and issue "
+        f"{len(wk)} product-weeks), and none of the monthly thresholds tried finds one. So the FY2026 product and issue "
         "mix that Parts 3 and 4 build on is not one event's footprint.")
     add(f"- **The largest issue in debt collection is debts people say they don't owe** ({pct(dc_top['share'])} "
         f"of its complaints). In {len(quarter)} of {len(top1)} products the most common issue is a quarter or more "
@@ -309,7 +310,8 @@ def build_report(out: Path = RESULTS) -> str:
     add(f"The CFPB changed its product list in April 2017 and August 2023. To compare years, every complaint "
         f"is put under the product it would be filed under today (`complaints/taxonomy.py`). The history has "
         f"{len(pm)} product and sub-product pairs as filed; {n(old_total)} complaints ({pct(old_total / total, 1)} "
-        f"of {n(total)}) were filed under a name that no longer exists. Four products were later split, so "
+        f"of {n(total)}) move: {n(old_total - moved_sub)} filed under a product name that no longer exists, and "
+        f"{n(moved_sub)} filed under a current name with a sub-product that has since moved to another product. Four products were later split, so "
         "they are mapped by sub-product (for example, prepaid sub-products of \"Credit card or prepaid card\" go "
         "to Prepaid card). Every complaint lands on exactly one of the 11 current products, and the total is "
         "unchanged (tested).\n")
@@ -344,9 +346,9 @@ def build_report(out: Path = RESULTS) -> str:
     }), "llrrrlr"))
     add("\nA share above 100% means the other companies together had fewer complaints than their usual month. "
         f"In {one_firm} of the {len(sp)} spikes one company makes up half or more of the extra complaints, and in "
-        f"{'all of them' if two_firms == len(sp) else two_firms} the two largest companies do. The data does not say why any spike happened. Three of them "
-        "come in the same month as a public event about the company behind most of the spike, or the month "
-        "after it (timing alone does not show cause):\n")
+        f"{'all of them' if two_firms == len(sp) else two_firms} the two largest companies do. The data does not say why any spike happened. Some come in "
+        "the same month as a public event about the company behind most of the spike, or the month after it "
+        "(timing alone does not show cause):\n")
     for (prod, m), (text, url) in EVENTS.items():
         r = s.loc[(prod, m)]
         add(f"- {short(prod)}, {month_name(m)}: {r['top_company']} drew {pct(r['top_company_share'], 0)} of the "
