@@ -21,7 +21,6 @@ sys.path.insert(0, str(ROOT))
 from complaints import load, profile as P, source  # noqa: E402
 
 RESULTS = ROOT / "results"
-CHARTS = RESULTS / "charts"
 
 # The monthly history ends with a part month (the bulk file runs to 23 Nov 2026).
 HISTORY_LAST_MONTH = "2026-10"
@@ -204,7 +203,8 @@ CHECK_NOTES = {
 }
 
 
-def build_report() -> str:
+def build_report(out: Path = RESULTS) -> str:
+    charts = out / "charts"
     con = load.connect()
     manifest = json.loads(source.MANIFEST_PATH.read_text())
     hist = P.history(con)
@@ -221,18 +221,18 @@ def build_report() -> str:
     old = P.old_in_progress(con)
     total = int(mix["complaints"].sum())
 
-    CHARTS.mkdir(parents=True, exist_ok=True)
-    chart_history(split, CHARTS / "01_history_by_month.png")
-    chart_products(mix, CHARTS / "02_fy2026_by_product.png")
-    chart_concentration(conc, summ, CHARTS / "03_company_concentration.png")
-    chart_response_status(resp, CHARTS / "04_response_status_by_month.png")
+    charts.mkdir(parents=True, exist_ok=True)
+    chart_history(split, charts / "01_history_by_month.png")
+    chart_products(mix, charts / "02_fy2026_by_product.png")
+    chart_concentration(conc, summ, charts / "03_company_concentration.png")
+    chart_response_status(resp, charts / "04_response_status_by_month.png")
 
-    hist.to_csv(RESULTS / "history_by_fiscal_year.csv", index=False, lineterminator="\n")
-    mix.to_csv(RESULTS / "product_mix_fy2026.csv", index=False, lineterminator="\n", float_format="%.6f")
-    conc.to_csv(RESULTS / "company_ranking_fy2026.csv", index=False, lineterminator="\n", float_format="%.6f")
-    cols.to_csv(RESULTS / "column_profile.csv", index=False, lineterminator="\n", float_format="%.6f")
-    checks.to_csv(RESULTS / "quality_checks.csv", index=False, lineterminator="\n", float_format="%.6f")
-    resp.to_csv(RESULTS / "response_by_month.csv", index=False, lineterminator="\n")
+    hist.to_csv(out / "history_by_fiscal_year.csv", index=False, lineterminator="\n")
+    mix.to_csv(out / "product_mix_fy2026.csv", index=False, lineterminator="\n", float_format="%.6f")
+    conc.to_csv(out / "company_ranking_fy2026.csv", index=False, lineterminator="\n", float_format="%.6f")
+    cols.to_csv(out / "column_profile.csv", index=False, lineterminator="\n", float_format="%.6f")
+    checks.to_csv(out / "quality_checks.csv", index=False, lineterminator="\n", float_format="%.6f")
+    resp.to_csv(out / "response_by_month.csv", index=False, lineterminator="\n")
 
     ck = checks.set_index("check_id")["complaints"]
     fy = hist.set_index("fiscal_year")
@@ -316,8 +316,9 @@ def build_report() -> str:
     add(f"The tall spike in the right-hand panel is {surge['month_name']}, outside the snapshot: "
         f"{n(surge['complaints'])} complaints about products other than credit reporting, against "
         f"{n(surge['prev_complaints'])} the month before and {n(surge['next_complaints'])} the month after. "
-        f"Most of it is money transfers ({n(surge['mt'])} against {n(surge['mt_prev'])} the month before) and "
-        f"checking or savings accounts ({n(surge['bank'])} against {n(surge['bank_prev'])}). The data does not "
+        f"Money transfers ({n(surge['mt'])} against {n(surge['mt_prev'])} the month before) and checking or "
+        f"savings accounts ({n(surge['bank'])} against {n(surge['bank_prev'])}) make up {pct(surge['jump_share'], 0)} "
+        "of the increase. The data does not "
         "say why. A month like this can swamp a trend, so Part 2 looks for such surges before reading any.\n")
     n_names = int(con.execute("SELECT count(DISTINCT product) FROM monthly").fetchone()[0])
     n_now = len(mix)
@@ -401,10 +402,15 @@ def build_report() -> str:
     return "\n".join(L) + "\n"
 
 
+def write(out: Path = RESULTS) -> str:
+    out.mkdir(parents=True, exist_ok=True)
+    report = build_report(out)
+    (out / "PROFILE.md").write_text(report)
+    return report
+
+
 def main() -> int:
-    RESULTS.mkdir(parents=True, exist_ok=True)
-    report = build_report()
-    (RESULTS / "PROFILE.md").write_text(report)
+    report = write()
     print(f"wrote results/PROFILE.md ({len(report.splitlines())} lines), 6 CSVs and 4 charts")
     return 0
 

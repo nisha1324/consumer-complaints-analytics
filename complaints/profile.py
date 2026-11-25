@@ -118,7 +118,7 @@ def surge_month(con: duckdb.DuckDBPyConnection) -> dict:
             "SELECT coalesce(sum(complaints), 0) FROM monthly WHERE month = ? AND product LIKE ?",
             [month, like]).fetchone()[0])
 
-    return {
+    out = {
         "month": m,
         "month_name": pd.Timestamp(m + "-01").strftime("%B %Y"),
         "complaints": int(split.loc[i, "other_products"]),
@@ -127,3 +127,6 @@ def surge_month(con: duckdb.DuckDBPyConnection) -> dict:
         "mt": count(m, "Money transfer%"), "mt_prev": count(prev_m, "Money transfer%"),
         "bank": count(m, "Checking or savings%"), "bank_prev": count(prev_m, "Checking or savings%"),
     }
+    out["jump_share"] = ((out["mt"] - out["mt_prev"]) + (out["bank"] - out["bank_prev"])) / (
+        out["complaints"] - out["prev_complaints"])
+    return out

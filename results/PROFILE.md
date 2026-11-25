@@ -43,7 +43,7 @@ The monthly file adds up to 19,397,176 complaints, the whole bulk file.
 
 FY2012 to FY2018 and the part year FY2027 are in `results/history_by_fiscal_year.csv`. Credit-reporting complaints grew 49-fold from FY2019 to FY2026, and all other products 4.8-fold. The data does not say why. This project keeps credit reporting out of the row-level snapshot: it is a different kind of complaint (about consumer reports, not a product the consumer chose), and at 6.3 million rows in FY2026 it would swamp every other product.
 
-The tall spike in the right-hand panel is January 2025, outside the snapshot: 109,916 complaints about products other than credit reporting, against 36,058 the month before and 41,402 the month after. Most of it is money transfers (49,743 against 1,731 the month before) and checking or savings accounts (18,367 against 4,798). The data does not say why. A month like this can swamp a trend, so Part 2 looks for such surges before reading any.
+The tall spike in the right-hand panel is January 2025, outside the snapshot: 109,916 complaints about products other than credit reporting, against 36,058 the month before and 41,402 the month after. Money transfers (49,743 against 1,731 the month before) and checking or savings accounts (18,367 against 4,798) make up 83% of the increase. The data does not say why. A month like this can swamp a trend, so Part 2 looks for such surges before reading any.
 
 Product names changed over the years: the history has 21 names, the FY2026 snapshot 10 (plus credit reporting). Part 2 maps old names onto current ones before comparing years.
 
