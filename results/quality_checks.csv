@@ -1,0 +1,22 @@
+check_id,check_name,complaints,share
+1,Complaint ID is not unique,0,0.000000
+2,Date received outside the window,0,0.000000
+3,Sent to the company before it was received,0,0.000000
+4,Sent to the company more than 14 days after it was received,33403,0.050730
+5,Timely response is not Yes or No,0,0.000000
+6,"Company response still ""In progress""",1743,0.002647
+7,"Not timely: ""Untimely response"" (no response in time)",15098,0.022930
+8,"Not timely: closed, but late",9575,0.014542
+9,"""Untimely response"" marked as timely",0,0.000000
+10,State missing,3547,0.005387
+11,State not a two-letter code,50,0.000076
+12,ZIP code published as 3 digits only (small area),66485,0.100973
+13,ZIP code withheld (XXXXX),6312,0.009586
+14,ZIP code missing,1898,0.002883
+15,ZIP code in any other format,0,0.000000
+16,"Sub-issue missing, issue never has one",61841,0.093920
+17,"Sub-issue missing, issue has one on other complaints",0,0.000000
+18,Sub-product missing,0,0.000000
+19,Identical to an earlier complaint on every field except the ID,17349,0.026349
+20,Company name collides with another once case and punctuation are ignored,392,0.000595
+21,Tagged both Older American and Servicemember (one combined value),6492,0.009860

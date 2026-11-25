@@ -1,0 +1,16 @@
+column_name,complaints,filled,distinct_values,most_common,most_common_complaints,filled_share,most_common_share
+complaint_id,658443,658443,658443,16258256,1,1.000000,0.000002
+date_received,658443,658443,365,2026-03-10,2704,1.000000,0.004107
+date_sent_to_company,658443,658443,410,2025-12-09,3836,1.000000,0.005826
+product,658443,658443,10,Debt collection,324870,1.000000,0.493391
+sub_product,658443,658443,53,I do not know,205040,1.000000,0.311401
+issue,658443,658443,88,Attempts to collect debt not owed,140813,1.000000,0.213858
+sub_issue,658443,596602,208,Debt is not yours,90151,0.906080,0.151107
+company,658443,658443,3989,CL Holdings LLC,24233,1.000000,0.036803
+state,658443,654896,61,TX,87905,0.994613,0.134227
+zip_code,658443,656545,20391,XXXXX,6312,0.997117,0.009614
+tags,658443,71763,3,Servicemember,39675,0.108989,0.552862
+submitted_via,658443,658443,4,Web,631009,1.000000,0.958335
+company_response,658443,658443,5,Closed with explanation,512108,1.000000,0.777756
+company_public_response,658443,204140,10,Company has responded to the consumer and the CFPB and chooses not to provide a public response,166665,0.310034,0.816425
+timely_response,658443,658443,2,true,633770,1.000000,0.962528
