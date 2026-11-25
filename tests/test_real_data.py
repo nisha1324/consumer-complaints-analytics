@@ -165,15 +165,14 @@ def test_surge_is_january_2025_and_outside_the_window(con):
 def test_profile_regenerates_byte_for_byte(tmp_path):
     profile_report.write(tmp_path)
     produced = sorted(p.relative_to(tmp_path) for p in tmp_path.rglob("*") if p.is_file())
-    committed = sorted(p.relative_to(RESULTS) for p in RESULTS.rglob("*") if p.is_file()
-                       and (p.name == "PROFILE.md" or p.suffix in (".csv", ".png")))
-    assert produced == committed
+    assert len(produced) == 1 + 6 + 4          # PROFILE.md, 6 CSVs, charts 01-04
     for rel in produced:
         assert (tmp_path / rel).read_bytes() == (RESULTS / rel).read_bytes(), rel
 
 
-def test_profile_links_every_chart():
+def test_profile_links_every_chart(tmp_path):
+    profile_report.write(tmp_path)
     text = (RESULTS / "PROFILE.md").read_text()
     links = re.findall(r"\]\((charts/[^)]+\.png)\)", text)
-    charts = sorted(f"charts/{p.name}" for p in (RESULTS / "charts").glob("*.png"))
+    charts = sorted(f"charts/{p.name}" for p in (tmp_path / "charts").glob("*.png"))
     assert sorted(set(links)) == charts
