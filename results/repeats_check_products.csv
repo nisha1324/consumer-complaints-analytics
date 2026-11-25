@@ -1,0 +1,11 @@
+product,complaints,complaints_no_repeats,share,share_no_repeats,rank,rank_no_repeats
+Debt collection,324870,310097,0.493391,0.483700,1,1
+Credit card,96251,95172,0.146180,0.148452,2,2
+Checking or savings account,88979,88383,0.135135,0.137863,3,3
+"Money transfer, virtual currency, or money service",39582,39201,0.060115,0.061147,4,4
+Mortgage,33587,33377,0.051010,0.052063,5,5
+Vehicle loan or lease,25486,25392,0.038706,0.039607,6,6
+Student loan,20113,20036,0.030546,0.031253,7,7
+"Payday loan, title loan, personal loan, or advance loan",18720,18649,0.028431,0.029089,8,8
+Prepaid card,6444,6405,0.009787,0.009991,9,9
+Debt or credit management,4411,4382,0.006699,0.006835,10,10

@@ -1,0 +1,128 @@
+product,issue,complaints,share,complaints_no_repeats,share_no_repeats
+Checking or savings account,Managing an account,51655,0.580530,51282,0.580225
+Checking or savings account,Problem with a lender or other company charging your account,12718,0.142933,12661,0.143252
+Checking or savings account,Closing an account,11743,0.131975,11680,0.132152
+Checking or savings account,Opening an account,7231,0.081266,7140,0.080785
+Checking or savings account,Problem caused by your funds being low,4940,0.055519,4931,0.055791
+Checking or savings account,Incorrect information on your report,280,0.003147,280,0.003168
+Checking or savings account,Problem with a company's investigation into an existing problem,247,0.002776,245,0.002772
+Checking or savings account,Improper use of your report,60,0.000674,59,0.000668
+Checking or savings account,Problem with fraud alerts or security freezes,57,0.000641,57,0.000645
+Checking or savings account,Credit monitoring or identity theft protection services,33,0.000371,33,0.000373
+Checking or savings account,Unable to get your credit report or credit score,15,0.000169,15,0.000170
+Credit card,Problem with a purchase shown on your statement,30936,0.321410,30619,0.321723
+Credit card,Getting a credit card,10959,0.113859,10824,0.113731
+Credit card,"Other features, terms, or problems",10889,0.113131,10819,0.113678
+Credit card,Fees or interest,9956,0.103438,9903,0.104054
+Credit card,Incorrect information on your report,8138,0.084550,7913,0.083144
+Credit card,Closing your account,6623,0.068810,6537,0.068686
+Credit card,Problem when making payments,4868,0.050576,4842,0.050876
+Credit card,"Advertising and marketing, including promotional offers",4258,0.044239,4214,0.044278
+Credit card,Trouble using your card,3809,0.039574,3763,0.039539
+Credit card,Problem with a company's investigation into an existing problem,3461,0.035958,3417,0.035903
+Credit card,Struggling to pay your bill,1398,0.014525,1381,0.014511
+Credit card,Improper use of your report,614,0.006379,598,0.006283
+Credit card,Credit monitoring or identity theft protection services,194,0.002016,194,0.002038
+Credit card,Problem with fraud alerts or security freezes,101,0.001049,101,0.001061
+Credit card,Unable to get your credit report or credit score,47,0.000488,47,0.000494
+Debt collection,Attempts to collect debt not owed,140813,0.433444,137209,0.442471
+Debt collection,Took or threatened to take negative or legal action,79919,0.246003,72162,0.232708
+Debt collection,Written notification about debt,52370,0.161203,50701,0.163500
+Debt collection,False statements or representation,35247,0.108496,33635,0.108466
+Debt collection,Communication tactics,9179,0.028254,9091,0.029317
+Debt collection,Electronic communications,4669,0.014372,4640,0.014963
+Debt collection,Threatened to contact someone or share information improperly,2673,0.008228,2659,0.008575
+Debt or credit management,Confusing or missing disclosures,1165,0.264112,1140,0.260155
+Debt or credit management,Didn't provide services promised,1085,0.245976,1082,0.246919
+Debt or credit management,Charged upfront or unexpected fees,646,0.146452,645,0.147193
+Debt or credit management,Problem with customer service,588,0.133303,588,0.134185
+Debt or credit management,Unauthorized withdrawals or charges,479,0.108592,479,0.109311
+Debt or credit management,Confusing or misleading advertising or marketing,448,0.101564,448,0.102236
+"Money transfer, virtual currency, or money service",Fraud or scam,11420,0.288515,11333,0.289100
+"Money transfer, virtual currency, or money service",Other transaction problem,7444,0.188065,7281,0.185735
+"Money transfer, virtual currency, or money service",Unauthorized transactions or other transaction problem,6877,0.173741,6833,0.174307
+"Money transfer, virtual currency, or money service",Trouble accessing funds in your mobile or digital wallet,4062,0.102622,4015,0.102421
+"Money transfer, virtual currency, or money service",Money was not available when promised,2896,0.073165,2890,0.073723
+"Money transfer, virtual currency, or money service","Managing, opening, or closing your mobile wallet account",2494,0.063008,2475,0.063136
+"Money transfer, virtual currency, or money service",Other service problem,1065,0.026906,1061,0.027066
+"Money transfer, virtual currency, or money service",Confusing or missing disclosures,872,0.022030,868,0.022142
+"Money transfer, virtual currency, or money service",Problem with customer service,619,0.015638,619,0.015790
+"Money transfer, virtual currency, or money service",Unexpected or other fees,581,0.014678,580,0.014796
+"Money transfer, virtual currency, or money service",Wrong amount charged or received,354,0.008943,354,0.009030
+"Money transfer, virtual currency, or money service",Lost or stolen money order,296,0.007478,294,0.007500
+"Money transfer, virtual currency, or money service",Confusing or misleading advertising or marketing,285,0.007200,284,0.007245
+"Money transfer, virtual currency, or money service",Problem adding money,191,0.004825,189,0.004821
+"Money transfer, virtual currency, or money service","Overdraft, savings, or rewards features",106,0.002678,105,0.002679
+"Money transfer, virtual currency, or money service",Incorrect exchange rate,20,0.000505,20,0.000510
+Mortgage,Trouble during payment process,16307,0.485515,16184,0.484885
+Mortgage,Struggling to pay mortgage,9403,0.279960,9337,0.279744
+Mortgage,Applying for a mortgage or refinancing an existing mortgage,3312,0.098610,3307,0.099080
+Mortgage,Closing on a mortgage,2654,0.079019,2648,0.079336
+Mortgage,Incorrect information on your report,1095,0.032602,1087,0.032567
+Mortgage,Problem with a company's investigation into an existing problem,651,0.019382,649,0.019445
+Mortgage,Improper use of your report,85,0.002531,85,0.002547
+Mortgage,Credit monitoring or identity theft protection services,38,0.001131,38,0.001139
+Mortgage,Unable to get your credit report or credit score,28,0.000834,28,0.000839
+Mortgage,Problem with fraud alerts or security freezes,14,0.000417,14,0.000419
+"Payday loan, title loan, personal loan, or advance loan",Charged fees or interest you didn't expect,4358,0.232799,4340,0.232720
+"Payday loan, title loan, personal loan, or advance loan",Problem when making payments,3077,0.164370,3068,0.164513
+"Payday loan, title loan, personal loan, or advance loan",Struggling to pay your loan,1930,0.103098,1922,0.103062
+"Payday loan, title loan, personal loan, or advance loan",Getting the loan,1845,0.098558,1840,0.098665
+"Payday loan, title loan, personal loan, or advance loan",Problem with additional add-on products or services,1611,0.086058,1605,0.086064
+"Payday loan, title loan, personal loan, or advance loan",Problem with the payoff process at the end of the loan,1383,0.073878,1382,0.074106
+"Payday loan, title loan, personal loan, or advance loan",Incorrect information on your report,1165,0.062233,1153,0.061826
+"Payday loan, title loan, personal loan, or advance loan",Problem with a company's investigation into an existing problem,467,0.024947,467,0.025042
+"Payday loan, title loan, personal loan, or advance loan",Getting a line of credit,403,0.021528,403,0.021610
+"Payday loan, title loan, personal loan, or advance loan",Can't stop withdrawals from your bank account,344,0.018376,344,0.018446
+"Payday loan, title loan, personal loan, or advance loan",Can't contact lender or servicer,254,0.013568,254,0.013620
+"Payday loan, title loan, personal loan, or advance loan",Received a loan you didn't apply for,243,0.012981,241,0.012923
+"Payday loan, title loan, personal loan, or advance loan",Issues with repayment,200,0.010684,199,0.010671
+"Payday loan, title loan, personal loan, or advance loan",Money was taken from your bank account on the wrong day or for the wrong amount,170,0.009081,170,0.009116
+"Payday loan, title loan, personal loan, or advance loan",Vehicle was repossessed or sold the vehicle,155,0.008280,155,0.008311
+"Payday loan, title loan, personal loan, or advance loan",Loan payment wasn't credited to your account,147,0.007853,147,0.007882
+"Payday loan, title loan, personal loan, or advance loan",Improper use of your report,142,0.007585,141,0.007561
+"Payday loan, title loan, personal loan, or advance loan","Was approved for a loan, but didn't receive the money",112,0.005983,112,0.006006
+"Payday loan, title loan, personal loan, or advance loan",Confusing or misleading advertising or marketing,111,0.005929,111,0.005952
+"Payday loan, title loan, personal loan, or advance loan",Confusing or missing disclosures,102,0.005449,100,0.005362
+"Payday loan, title loan, personal loan, or advance loan",Problems receiving the advance,95,0.005075,94,0.005040
+"Payday loan, title loan, personal loan, or advance loan",Unexpected fees,86,0.004594,86,0.004612
+"Payday loan, title loan, personal loan, or advance loan",Credit monitoring or identity theft protection services,78,0.004167,78,0.004183
+"Payday loan, title loan, personal loan, or advance loan",Problem with cash advance,56,0.002991,56,0.003003
+"Payday loan, title loan, personal loan, or advance loan",Credit limit changed,41,0.002190,41,0.002199
+"Payday loan, title loan, personal loan, or advance loan",Vehicle was damaged or destroyed the vehicle,37,0.001976,37,0.001984
+"Payday loan, title loan, personal loan, or advance loan",Problem with fraud alerts or security freezes,35,0.001870,35,0.001877
+"Payday loan, title loan, personal loan, or advance loan",Unable to get your credit report or credit score,30,0.001603,25,0.001341
+"Payday loan, title loan, personal loan, or advance loan","Was approved for a loan, but didn't receive money",20,0.001068,20,0.001072
+"Payday loan, title loan, personal loan, or advance loan",Property was damaged or destroyed property,8,0.000427,8,0.000429
+"Payday loan, title loan, personal loan, or advance loan",Property was sold,7,0.000374,7,0.000375
+"Payday loan, title loan, personal loan, or advance loan",Lost or stolen refund,5,0.000267,5,0.000268
+"Payday loan, title loan, personal loan, or advance loan",Problem with customer service,3,0.000160,3,0.000161
+Prepaid card,Problem with a purchase or transfer,2315,0.359249,2295,0.358314
+Prepaid card,Trouble using the card,2159,0.335040,2144,0.334738
+Prepaid card,Problem getting a card or closing an account,1099,0.170546,1096,0.171116
+Prepaid card,Unexpected or other fees,767,0.119025,766,0.119594
+Prepaid card,Advertising,73,0.011328,73,0.011397
+Prepaid card,Problem with overdraft,31,0.004811,31,0.004840
+Student loan,Dealing with your lender or servicer,11482,0.570875,11426,0.570274
+Student loan,Struggling to repay your loan,3711,0.184508,3701,0.184718
+Student loan,Incorrect information on your report,3043,0.151295,3035,0.151477
+Student loan,Problem with a company's investigation into an existing problem,866,0.043057,864,0.043122
+Student loan,Getting a loan,373,0.018545,373,0.018616
+Student loan,Improper use of your report,327,0.016258,326,0.016271
+Student loan,Issue with income share agreement,87,0.004326,87,0.004342
+Student loan,Credit monitoring or identity theft protection services,82,0.004077,82,0.004093
+Student loan,Issue where my lender is my school,73,0.003629,73,0.003643
+Student loan,Problem with fraud alerts or security freezes,54,0.002685,54,0.002695
+Student loan,Unable to get your credit report or credit score,15,0.000746,15,0.000749
+Vehicle loan or lease,Managing the loan or lease,7532,0.295535,7506,0.295605
+Vehicle loan or lease,Repossession,6807,0.267088,6773,0.266738
+Vehicle loan or lease,Problems at the end of the loan or lease,3883,0.152358,3874,0.152568
+Vehicle loan or lease,Getting a loan or lease,2683,0.105273,2675,0.105348
+Vehicle loan or lease,Incorrect information on your report,2228,0.087421,2216,0.087272
+Vehicle loan or lease,Struggling to pay your loan,1191,0.046732,1190,0.046865
+Vehicle loan or lease,Problem with a company's investigation into an existing problem,848,0.033273,844,0.033239
+Vehicle loan or lease,Improper use of your report,198,0.007769,198,0.007798
+Vehicle loan or lease,Credit monitoring or identity theft protection services,76,0.002982,76,0.002993
+Vehicle loan or lease,Unable to get your credit report or credit score,22,0.000863,22,0.000866
+Vehicle loan or lease,Problem with fraud alerts or security freezes,17,0.000667,17,0.000670
+Vehicle loan or lease,Problem with credit report or credit score,1,0.000039,1,0.000039

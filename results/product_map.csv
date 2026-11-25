@@ -1,0 +1,128 @@
+product,sub_product,current_product,rule,first_month,last_month,complaints
+Bank account or service,(CD) Certificate of deposit,Checking or savings account,renamed,2012-03,2017-04,3416.000000
+Bank account or service,Checking account,Checking or savings account,renamed,2012-03,2017-04,59041.000000
+Bank account or service,Other bank product/service,Checking or savings account,renamed,2012-03,2017-04,17822.000000
+Bank account or service,Savings account,Checking or savings account,renamed,2012-03,2017-04,5294.000000
+Checking or savings account,,Checking or savings account,same name,2017-05,2024-05,99.000000
+Checking or savings account,CD (Certificate of Deposit),Checking or savings account,same name,2017-04,2026-11,8220.000000
+Checking or savings account,Checking account,Checking or savings account,same name,2017-04,2026-11,337531.000000
+Checking or savings account,Credit reporting,Checking or savings account,same name,2024-07,2024-07,1.000000
+Checking or savings account,Other banking product or service,Checking or savings account,same name,2017-04,2026-11,38580.000000
+Checking or savings account,Savings account,Checking or savings account,same name,2017-04,2026-11,31067.000000
+Credit card,,Credit card,same name,2011-12,2017-04,89185.000000
+Credit card,General-purpose credit card or charge card,Credit card,same name,2023-08,2026-11,245128.000000
+Credit card,Store credit card,Credit card,same name,2023-08,2026-11,30629.000000
+Credit card or prepaid card,,Credit card,renamed,2021-03,2021-04,3.000000
+Credit card or prepaid card,General-purpose credit card or charge card,Credit card,renamed,2017-04,2023-08,158877.000000
+Credit card or prepaid card,Store credit card,Credit card,renamed,2017-04,2023-08,27909.000000
+Credit reporting,,Credit reporting or other personal consumer reports,renamed,2012-10,2017-04,140426.000000
+Credit reporting or other personal consumer reports,Credit reporting,Credit reporting or other personal consumer reports,same name,2023-08,2026-11,13659116.000000
+Credit reporting or other personal consumer reports,Other personal consumer report,Credit reporting or other personal consumer reports,same name,2023-08,2026-11,50651.000000
+"Credit reporting, credit repair services, or other personal consumer reports",Conventional home mortgage,Credit reporting or other personal consumer reports,renamed,2018-05,2018-05,1.000000
+"Credit reporting, credit repair services, or other personal consumer reports",Credit reporting,Credit reporting or other personal consumer reports,renamed,2017-04,2023-08,2142645.000000
+"Credit reporting, credit repair services, or other personal consumer reports",Other personal consumer report,Credit reporting or other personal consumer reports,renamed,2017-04,2023-08,16058.000000
+Debt collection,Auto,Debt collection,same name,2013-07,2017-04,3748.000000
+Debt collection,Auto debt,Debt collection,same name,2017-04,2026-11,33577.000000
+Debt collection,Credit card,Debt collection,same name,2013-07,2017-04,28626.000000
+Debt collection,Credit card debt,Debt collection,same name,2017-04,2026-11,186826.000000
+Debt collection,Federal student loan,Debt collection,same name,2013-07,2017-04,2473.000000
+Debt collection,Federal student loan debt,Debt collection,same name,2017-04,2026-11,6180.000000
+Debt collection,I do not know,Debt collection,same name,2013-07,2026-11,522046.000000
+Debt collection,Medical,Debt collection,same name,2013-07,2017-04,21143.000000
+Debt collection,Medical debt,Debt collection,same name,2017-04,2026-11,79042.000000
+Debt collection,Mortgage,Debt collection,same name,2013-07,2017-04,4807.000000
+Debt collection,Mortgage debt,Debt collection,same name,2017-04,2026-11,8680.000000
+Debt collection,Non-federal student loan,Debt collection,same name,2013-07,2017-04,2878.000000
+Debt collection,"Other (i.e. phone, health club, etc.)",Debt collection,same name,2013-07,2017-04,44436.000000
+Debt collection,Other debt,Debt collection,same name,2017-04,2026-11,204289.000000
+Debt collection,Payday loan,Debt collection,same name,2013-10,2017-04,7493.000000
+Debt collection,Payday loan debt,Debt collection,same name,2017-04,2026-11,17110.000000
+Debt collection,Private student loan debt,Debt collection,same name,2017-04,2026-11,6284.000000
+Debt collection,Rental debt,Debt collection,same name,2023-08,2026-11,31785.000000
+Debt collection,Telecommunications debt,Debt collection,same name,2023-08,2026-11,33334.000000
+"Credit reporting, credit repair services, or other personal consumer reports",Credit repair services,Debt or credit management,sub-product,2017-04,2023-08,5064.000000
+Debt or credit management,Credit repair services,Debt or credit management,same name,2023-08,2026-11,4545.000000
+Debt or credit management,Debt settlement,Debt or credit management,same name,2023-08,2026-11,5966.000000
+Debt or credit management,Mortgage modification or foreclosure avoidance,Debt or credit management,same name,2023-08,2026-11,406.000000
+Debt or credit management,Student loan debt relief,Debt or credit management,same name,2023-08,2026-11,156.000000
+"Money transfer, virtual currency, or money service",Debt settlement,Debt or credit management,sub-product,2017-04,2023-08,946.000000
+Other financial service,Credit repair,Debt or credit management,sub-product,2014-08,2017-04,102.000000
+Other financial service,Debt settlement,Debt or credit management,sub-product,2014-07,2017-04,331.000000
+Bank account or service,Cashing a check without an account,"Money transfer, virtual currency, or money service",sub-product,2012-03,2017-04,625.000000
+"Money transfer, virtual currency, or money service",Check cashing service,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,2343.000000
+"Money transfer, virtual currency, or money service",Domestic (US) money transfer,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,87083.000000
+"Money transfer, virtual currency, or money service",Foreign currency exchange,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,1449.000000
+"Money transfer, virtual currency, or money service",International money transfer,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,15200.000000
+"Money transfer, virtual currency, or money service",Mobile or digital wallet,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,64508.000000
+"Money transfer, virtual currency, or money service",Money order,"Money transfer, virtual currency, or money service",same name,2017-05,2023-08,776.000000
+"Money transfer, virtual currency, or money service","Money order, traveler's check or cashier's check","Money transfer, virtual currency, or money service",same name,2023-08,2026-11,2800.000000
+"Money transfer, virtual currency, or money service",Refund anticipation check,"Money transfer, virtual currency, or money service",same name,2017-05,2023-08,627.000000
+"Money transfer, virtual currency, or money service",Traveler's check or cashier's check,"Money transfer, virtual currency, or money service",same name,2017-04,2023-08,983.000000
+"Money transfer, virtual currency, or money service",Virtual currency,"Money transfer, virtual currency, or money service",same name,2017-04,2026-11,22878.000000
+Money transfers,Domestic (US) money transfer,"Money transfer, virtual currency, or money service",renamed,2013-04,2017-04,2584.000000
+Money transfers,International money transfer,"Money transfer, virtual currency, or money service",renamed,2013-04,2017-04,2770.000000
+Other financial service,Check cashing,"Money transfer, virtual currency, or money service",renamed,2014-07,2017-04,266.000000
+Other financial service,Foreign currency exchange,"Money transfer, virtual currency, or money service",renamed,2014-08,2017-04,58.000000
+Other financial service,Money order,"Money transfer, virtual currency, or money service",renamed,2014-07,2017-04,143.000000
+Other financial service,Refund anticipation check,"Money transfer, virtual currency, or money service",renamed,2014-07,2017-03,68.000000
+Other financial service,Traveler’s/Cashier’s checks,"Money transfer, virtual currency, or money service",renamed,2014-07,2017-04,88.000000
+Prepaid card,Mobile wallet,"Money transfer, virtual currency, or money service",sub-product,2014-07,2017-04,418.000000
+Virtual currency,Domestic (US) money transfer,"Money transfer, virtual currency, or money service",renamed,2014-08,2017-04,17.000000
+Virtual currency,International money transfer,"Money transfer, virtual currency, or money service",renamed,2016-03,2016-03,1.000000
+Mortgage,Conventional adjustable mortgage (ARM),Mortgage,same name,2011-12,2017-04,25380.000000
+Mortgage,Conventional fixed mortgage,Mortgage,same name,2011-12,2017-04,70591.000000
+Mortgage,Conventional home mortgage,Mortgage,same name,2017-04,2026-11,142477.000000
+Mortgage,FHA mortgage,Mortgage,same name,2011-12,2026-11,65822.000000
+Mortgage,Home equity loan or line of credit,Mortgage,same name,2011-12,2017-04,11622.000000
+Mortgage,Home equity loan or line of credit (HELOC),Mortgage,same name,2017-04,2026-11,15038.000000
+Mortgage,Manufactured home loan,Mortgage,same name,2023-08,2026-11,926.000000
+Mortgage,Other mortgage,Mortgage,same name,2011-12,2017-04,86612.000000
+Mortgage,Other type of mortgage,Mortgage,same name,2017-04,2026-11,18098.000000
+Mortgage,Reverse mortgage,Mortgage,same name,2011-12,2026-11,5482.000000
+Mortgage,Second mortgage,Mortgage,same name,2011-12,2016-03,662.000000
+Mortgage,USDA mortgage,Mortgage,same name,2023-08,2026-11,873.000000
+Mortgage,VA mortgage,Mortgage,same name,2011-12,2026-11,24427.000000
+Consumer Loan,Installment loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2012-03,2017-04,8671.000000
+Consumer Loan,Pawn loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2014-07,2017-04,94.000000
+Consumer Loan,Personal line of credit,"Payday loan, title loan, personal loan, or advance loan",renamed,2012-03,2017-04,1824.000000
+Consumer Loan,Title loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2014-07,2017-04,547.000000
+Payday loan,,"Payday loan, title loan, personal loan, or advance loan",renamed,2013-11,2017-04,5528.000000
+"Payday loan, title loan, or personal loan",,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-08,2022-07,34.000000
+"Payday loan, title loan, or personal loan",Installment loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-04,2023-08,13416.000000
+"Payday loan, title loan, or personal loan",Pawn loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-05,2023-08,76.000000
+"Payday loan, title loan, or personal loan",Payday loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-04,2023-08,6963.000000
+"Payday loan, title loan, or personal loan",Personal line of credit,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-04,2023-08,7367.000000
+"Payday loan, title loan, or personal loan",Title loan,"Payday loan, title loan, personal loan, or advance loan",renamed,2017-04,2023-08,2758.000000
+"Payday loan, title loan, personal loan, or advance loan",Earned wage access,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,445.000000
+"Payday loan, title loan, personal loan, or advance loan",Installment loan,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,24687.000000
+"Payday loan, title loan, personal loan, or advance loan",Other advances of future income,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,801.000000
+"Payday loan, title loan, personal loan, or advance loan",Pawn loan,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,138.000000
+"Payday loan, title loan, personal loan, or advance loan",Payday loan,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,6574.000000
+"Payday loan, title loan, personal loan, or advance loan",Personal line of credit,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,7247.000000
+"Payday loan, title loan, personal loan, or advance loan",Tax refund anticipation loan or check,"Payday loan, title loan, personal loan, or advance loan",same name,2023-09,2026-10,64.000000
+"Payday loan, title loan, personal loan, or advance loan",Title loan,"Payday loan, title loan, personal loan, or advance loan",same name,2023-08,2026-11,2669.000000
+Credit card or prepaid card,General-purpose prepaid card,Prepaid card,sub-product,2017-04,2023-08,8530.000000
+Credit card or prepaid card,Gift card,Prepaid card,sub-product,2017-04,2023-08,1021.000000
+Credit card or prepaid card,Government benefit card,Prepaid card,sub-product,2017-04,2023-08,9067.000000
+Credit card or prepaid card,Payroll card,Prepaid card,sub-product,2017-04,2023-08,917.000000
+Credit card or prepaid card,Student prepaid card,Prepaid card,sub-product,2018-06,2023-08,32.000000
+Prepaid card,Electronic Benefit Transfer / EBT card,Prepaid card,same name,2014-11,2017-04,12.000000
+Prepaid card,General purpose card,Prepaid card,same name,2014-07,2017-04,1752.000000
+Prepaid card,General-purpose prepaid card,Prepaid card,same name,2023-08,2026-11,11309.000000
+Prepaid card,Gift card,Prepaid card,same name,2023-08,2026-11,2652.000000
+Prepaid card,Gift or merchant card,Prepaid card,same name,2014-07,2017-04,402.000000
+Prepaid card,Government benefit card,Prepaid card,same name,2023-08,2026-11,5662.000000
+Prepaid card,Government benefit payment card,Prepaid card,same name,2014-07,2017-04,389.000000
+Prepaid card,ID prepaid card,Prepaid card,same name,2014-08,2017-04,207.000000
+Prepaid card,Other special purpose card,Prepaid card,same name,2014-08,2017-04,191.000000
+Prepaid card,Payroll card,Prepaid card,same name,2014-07,2026-11,1522.000000
+Prepaid card,Student prepaid card,Prepaid card,same name,2023-10,2026-10,28.000000
+Prepaid card,Transit card,Prepaid card,same name,2014-08,2017-04,37.000000
+Student loan,Federal student loan servicing,Student loan,same name,2016-02,2026-11,88651.000000
+Student loan,Non-federal student loan,Student loan,same name,2012-03,2017-04,22282.000000
+Student loan,Private student loan,Student loan,same name,2017-04,2026-11,25998.000000
+Consumer Loan,Vehicle lease,Vehicle loan or lease,sub-product,2012-03,2017-04,2654.000000
+Consumer Loan,Vehicle loan,Vehicle loan or lease,sub-product,2012-03,2017-04,17769.000000
+Vehicle loan or lease,Lease,Vehicle loan or lease,same name,2017-04,2026-11,15498.000000
+Vehicle loan or lease,Loan,Vehicle loan or lease,same name,2017-04,2026-11,92978.000000
+Vehicle loan or lease,Title loan,Vehicle loan or lease,same name,2017-07,2022-09,46.000000
