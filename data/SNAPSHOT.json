@@ -1,0 +1,23 @@
+{
+  "source": "https://files.consumerfinance.gov/ccdb/complaints.csv.zip",
+  "licence": "US Government work, public domain within the United States",
+  "bulk_last_modified": "Tue, 24 Nov 2026 10:17:17 GMT",
+  "bulk_zip_bytes": 371218594,
+  "bulk_zip_sha256": "8b6db08e0f2d3c7af2a5e0c06c1e26b86c4411cffdceb4e78a8b327acb59dca2",
+  "downloaded_utc": "2026-11-25T03:42:43Z",
+  "window": {
+    "start": "2025-10-01",
+    "end": "2026-09-30"
+  },
+  "excluded_products": [
+    "Credit reporting or other personal consumer reports",
+    "Credit reporting, credit repair services, or other personal consumer reports",
+    "Credit reporting"
+  ],
+  "bulk_rows": 19397176,
+  "snapshot_rows": 658443,
+  "monthly_rows": 1711,
+  "monthly_total": 19397176,
+  "snapshot_sha256": "4b076522c7a9353f9dbb07c56203613d99b912861f9ac6f76113b6871c55b1eb",
+  "monthly_sha256": "13cd1cc56f127269d3960e31debb2dce4a2252c78d921e7b5bd106d3ab3d3828"
+}
