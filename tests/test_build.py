@@ -114,3 +114,31 @@ def test_selected_sql_uses_the_window_in_source():
     assert f"DATE '{source.WINDOW_START}' AND DATE '{source.WINDOW_END}'" in q
     for p in source.CREDIT_REPORTING_PRODUCTS:
         assert f"'{p}'" in q
+
+
+def test_company_history(tmp_path, toy_rows):
+    rows = toy_rows + [bulk_row(9, received="2026-01-20", company="OTHER BANK"),
+                       bulk_row(10, received="2026-01-03"), bulk_row(12),   # default date: 15 Jan 2026
+                       bulk_row(11, received="2016-05-09", product="Bank account or service", sub_product="")]
+    csv_path = write_bulk(tmp_path / "complaints.csv", rows)
+    comp = tmp_path / "company.parquet"
+    counts = build.build(csv_path, tmp_path / "s.parquet", tmp_path / "m.csv", comp)
+    df = duckdb.sql(f"SELECT * FROM read_parquet('{comp}')").df()
+    assert list(df.columns) == ["month", "product", "sub_product", "company", "complaints"]
+    assert counts["company_monthly_total"] == df["complaints"].sum() == len(rows) == counts["bulk_rows"]
+    assert counts["company_monthly_rows"] == len(df)
+    jan = df[(df["month"] == "2026-01") & (df["product"] == "Credit card")].set_index("company")["complaints"]
+    assert jan.to_dict() == {"ACME BANK": 2, "OTHER BANK": 1}      # 15 Jan and 3 Jan together; sorted by company
+    may16 = df[df["month"] == "2016-05"]
+    assert may16["sub_product"].isna().tolist() == [True, False]    # empty sub-product -> NULL, sorted first
+    assert may16["complaints"].tolist() == [1, 1]
+    # credit reporting stays in the company history
+    assert df["product"].isin(source.CREDIT_REPORTING_PRODUCTS).sum() == 2
+    comp2 = tmp_path / "company2.parquet"
+    build.build(csv_path, tmp_path / "s2.parquet", tmp_path / "m2.csv", comp2, threads=2)
+    assert comp.read_bytes() == comp2.read_bytes()
+
+
+def test_company_history_is_optional(built):
+    counts, *_ = built
+    assert "company_monthly_rows" not in counts

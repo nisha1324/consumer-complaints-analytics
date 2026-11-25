@@ -7,7 +7,11 @@ bulk file gives the same bytes:
   window about a product other than credit reporting, with typed columns
   and snake_case names;
 * the monthly history (CSV): complaints per month and product, as the
-  product was named when the complaint was filed, for the whole database.
+  product was named when the complaint was filed, for the whole database;
+* the company history (Parquet, zstd, optional): complaints per month,
+  product, sub-product and company, as filed, for the whole database. Part 2
+  needs the sub-product to map old product names onto current ones, and the
+  company to see who is behind a surge.
 """
 from __future__ import annotations
 
@@ -95,9 +99,28 @@ ORDER BY month, product
 """
 
 
+def company_monthly_select(csv_path: Path) -> str:
+    return f"""
+SELECT
+  strftime(date_trunc('month', CAST("Date received" AS DATE)), '%Y-%m') AS month,
+  "Product" AS product,
+  "Sub-product" AS sub_product,
+  "Company" AS company,
+  count(*) AS complaints
+FROM {_read_csv(csv_path)}
+GROUP BY ALL
+ORDER BY month, product, sub_product NULLS FIRST, company
+"""
+
+
 def build(csv_path: Path, snapshot_path: Path = source.SNAPSHOT_PATH,
-          monthly_path: Path = source.MONTHLY_PATH, threads: int = 1) -> dict:
-    """Write both outputs and return row counts for the manifest."""
+          monthly_path: Path = source.MONTHLY_PATH, company_path: Path | None = None,
+          threads: int = 1) -> dict:
+    """Write the outputs and return row counts for the manifest.
+
+    The company history is written only when company_path is given, so the
+    small hand-made tests can build the snapshot on its own.
+    """
     con = connect(threads)
     check_columns(con, csv_path)
     snapshot_path.parent.mkdir(parents=True, exist_ok=True)
@@ -109,9 +132,18 @@ def build(csv_path: Path, snapshot_path: Path = source.SNAPSHOT_PATH,
     monthly.to_csv(monthly_path, index=False, lineterminator="\n")
     total = int(con.execute(f"SELECT count(*) FROM {_read_csv(csv_path)}").fetchone()[0])
     snap_rows = int(con.execute(f"SELECT count(*) FROM read_parquet('{snapshot_path.as_posix()}')").fetchone()[0])
-    return {
+    counts = {
         "bulk_rows": total,
         "snapshot_rows": snap_rows,
         "monthly_rows": int(len(monthly)),
         "monthly_total": int(monthly["complaints"].sum()),
     }
+    if company_path is not None:
+        con.execute(
+            f"COPY ({company_monthly_select(csv_path)}) TO '{Path(company_path).as_posix()}' "
+            "(FORMAT parquet, COMPRESSION zstd, ROW_GROUP_SIZE 131072)"
+        )
+        rows, tot = con.execute(
+            f"SELECT count(*), sum(complaints) FROM read_parquet('{Path(company_path).as_posix()}')").fetchone()
+        counts["company_monthly_rows"], counts["company_monthly_total"] = int(rows), int(tot)
+    return counts

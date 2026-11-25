@@ -45,6 +45,8 @@ def test_source_and_snapshot(facts):
         f"**{n(m['snapshot_rows'])} complaints**")
     assert m["bulk_zip_bytes"] // 1_000_000 == 371
     assert round(source.SNAPSHOT_PATH.stat().st_size / 1e6, 1) == 5.8
+    assert round(source.COMPANY_MONTHLY_PATH.stat().st_size / 1e6, 1) == 1.4
+    has(f"for the whole history ({n(m['company_monthly_rows'])} rows)")
     assert "dated 24 November 2026" in README and m["bulk_last_modified"].startswith("Tue, 24 Nov 2026")
 
 

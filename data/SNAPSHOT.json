@@ -18,6 +18,9 @@
   "snapshot_rows": 658443,
   "monthly_rows": 1711,
   "monthly_total": 19397176,
+  "company_monthly_rows": 557414,
+  "company_monthly_total": 19397176,
   "snapshot_sha256": "4b076522c7a9353f9dbb07c56203613d99b912861f9ac6f76113b6871c55b1eb",
-  "monthly_sha256": "13cd1cc56f127269d3960e31debb2dce4a2252c78d921e7b5bd106d3ab3d3828"
+  "monthly_sha256": "13cd1cc56f127269d3960e31debb2dce4a2252c78d921e7b5bd106d3ab3d3828",
+  "company_monthly_sha256": "f017f83ad6fab3fb1af8f71812d99c3813cd2d3eddce2e0968cbf29b0997d299"
 }

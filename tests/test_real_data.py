@@ -32,6 +32,36 @@ def test_committed_files_match_pinned_hashes():
     assert download_data.check() == 0
     assert source.sha256_file(source.SNAPSHOT_PATH) == source.SNAPSHOT_SHA256
     assert source.sha256_file(source.MONTHLY_PATH) == source.MONTHLY_SHA256
+    assert source.sha256_file(source.COMPANY_MONTHLY_PATH) == source.COMPANY_MONTHLY_SHA256
+
+
+def test_company_history_agrees_with_monthly_history(con, manifest):
+    """The company history adds up to the monthly history in every month and product, and to the bulk file."""
+    diff = con.execute("""
+        SELECT count(*) FROM (
+          SELECT month, product, sum(complaints) AS n FROM company_monthly GROUP BY ALL
+        ) c FULL JOIN monthly m USING (month, product)
+        WHERE c.n IS DISTINCT FROM m.complaints
+    """).fetchone()[0]
+    assert diff == 0
+    rows, total = con.execute("SELECT count(*), sum(complaints) FROM company_monthly").fetchone()
+    assert manifest["company_monthly_rows"] == rows
+    assert manifest["company_monthly_total"] == total == manifest["bulk_rows"]
+    assert manifest["company_monthly_sha256"] == source.COMPANY_MONTHLY_SHA256
+
+
+def test_company_history_agrees_with_snapshot(con):
+    """FY2026 company counts outside credit reporting = the snapshot, company by company and sub-product."""
+    diff = con.execute("""
+        WITH h AS (
+          SELECT product, sub_product, company, sum(complaints) AS n FROM company_monthly
+          WHERE month BETWEEN '2025-10' AND '2026-09' AND product NOT LIKE 'Credit reporting%' GROUP BY ALL),
+        s AS (SELECT product, sub_product, company, count(*) AS n FROM complaints GROUP BY ALL)
+        SELECT count(*) FROM h FULL JOIN s
+          ON h.product = s.product AND h.sub_product IS NOT DISTINCT FROM s.sub_product AND h.company = s.company
+        WHERE h.n IS DISTINCT FROM s.n
+    """).fetchone()[0]
+    assert diff == 0
 
 
 def test_manifest_agrees_with_files(manifest, df, con):

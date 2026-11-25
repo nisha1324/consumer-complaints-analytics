@@ -1,12 +1,13 @@
 """Check the committed snapshot, or rebuild it from the CFPB bulk file.
 
-The two committed data files (data/complaints_fy2026.parquet and
-data/monthly_by_product.csv) are all the analysis needs. Their SHA-256 is
+The three committed data files (data/complaints_fy2026.parquet,
+data/monthly_by_product.csv and data/monthly_by_company.parquet) are all
+the analysis needs. Their SHA-256 is
 pinned in complaints/source.py.
 
     python scripts/download_data.py              # check the committed files against the pinned hashes
     python scripts/download_data.py --rebuild    # download the bulk file (~371 MB zipped, ~5.9 GB unzipped),
-                                                 # rebuild both files and write data/SNAPSHOT.json
+                                                 # rebuild all three files and write data/SNAPSHOT.json
 
 The CFPB replaces the bulk file every day, and companies' responses to
 recent complaints are still being filled in, so a rebuild on a later day
@@ -60,7 +61,8 @@ def extract_csv(zip_path: Path, out_dir: Path) -> Path:
 def check() -> int:
     ok = True
     for path, pinned in ((source.SNAPSHOT_PATH, source.SNAPSHOT_SHA256),
-                         (source.MONTHLY_PATH, source.MONTHLY_SHA256)):
+                         (source.MONTHLY_PATH, source.MONTHLY_SHA256),
+                         (source.COMPANY_MONTHLY_PATH, source.COMPANY_MONTHLY_SHA256)):
         if not path.exists():
             print(f"MISSING   {path.name} (run with --rebuild)", file=sys.stderr)
             ok = False
@@ -81,7 +83,7 @@ def rebuild(keep_csv: bool) -> int:
     print(f"  {source.RAW_ZIP.stat().st_size:,} bytes, Last-Modified {meta['last_modified']}, sha256 {zip_sha[:12]}…")
     csv_path = extract_csv(source.RAW_ZIP, source.RAW_DIR)
     print(f"  extracted {csv_path.stat().st_size:,} bytes; building the snapshot (a few minutes) …")
-    counts = build.build(csv_path)
+    counts = build.build(csv_path, company_path=source.COMPANY_MONTHLY_PATH)
     if not keep_csv:
         csv_path.unlink()
     manifest = {
@@ -96,9 +98,11 @@ def rebuild(keep_csv: bool) -> int:
         **counts,
         "snapshot_sha256": source.sha256_file(source.SNAPSHOT_PATH),
         "monthly_sha256": source.sha256_file(source.MONTHLY_PATH),
+        "company_monthly_sha256": source.sha256_file(source.COMPANY_MONTHLY_PATH),
     }
     source.MANIFEST_PATH.write_text(json.dumps(manifest, indent=2) + "\n")
-    for key, pinned in (("snapshot_sha256", source.SNAPSHOT_SHA256), ("monthly_sha256", source.MONTHLY_SHA256)):
+    for key, pinned in (("snapshot_sha256", source.SNAPSHOT_SHA256), ("monthly_sha256", source.MONTHLY_SHA256),
+                        ("company_monthly_sha256", source.COMPANY_MONTHLY_SHA256)):
         same = "matches the pinned hash" if manifest[key] == pinned else f"differs from the pinned {str(pinned)[:12]}…"
         print(f"  {key} {manifest[key][:12]}… {same}")
     print(f"wrote {source.MANIFEST_PATH.relative_to(source.ROOT)}: {json.dumps(counts)}")
@@ -107,7 +111,7 @@ def rebuild(keep_csv: bool) -> int:
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    ap.add_argument("--rebuild", action="store_true", help="download the bulk file and rebuild both data files")
+    ap.add_argument("--rebuild", action="store_true", help="download the bulk file and rebuild the three data files")
     ap.add_argument("--keep-csv", action="store_true", help="keep the 5.9 GB unzipped CSV in data/raw/")
     args = ap.parse_args()
     return rebuild(args.keep_csv) if args.rebuild else check()

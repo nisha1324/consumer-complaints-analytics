@@ -26,6 +26,9 @@ below, so every later step runs on exactly the same data:
   reporting.
 * MONTHLY_PATH: complaints per month and product for the full history,
   including credit reporting.
+* COMPANY_MONTHLY_PATH: complaints per month, product, sub-product and
+  company for the full history (added for Part 2: old product names are
+  mapped onto current ones by sub-product, and surges traced to companies).
 """
 from __future__ import annotations
 
@@ -44,6 +47,7 @@ RAW_ZIP = RAW_DIR / "complaints.csv.zip"
 DATA_DIR = ROOT / "data"
 SNAPSHOT_PATH = DATA_DIR / "complaints_fy2026.parquet"
 MONTHLY_PATH = DATA_DIR / "monthly_by_product.csv"
+COMPANY_MONTHLY_PATH = DATA_DIR / "monthly_by_company.parquet"
 MANIFEST_PATH = DATA_DIR / "SNAPSHOT.json"
 
 # The analysis window: US federal fiscal year 2026 (dates as received).
@@ -83,6 +87,9 @@ BULK_COLUMNS = (
 # see data/SNAPSHOT.json. A rebuild from that file gives these bytes again.
 SNAPSHOT_SHA256 = "4b076522c7a9353f9dbb07c56203613d99b912861f9ac6f76113b6871c55b1eb"
 MONTHLY_SHA256 = "13cd1cc56f127269d3960e31debb2dce4a2252c78d921e7b5bd106d3ab3d3828"
+# Added on 2026-11-25 (Part 2) from the same bulk file; the rebuild that made
+# it gave the two hashes above again.
+COMPANY_MONTHLY_SHA256 = "f017f83ad6fab3fb1af8f71812d99c3813cd2d3eddce2e0968cbf29b0997d299"
 
 
 def sha256_file(path: Path, chunk: int = 1 << 20) -> str:

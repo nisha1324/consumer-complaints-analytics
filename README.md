@@ -13,9 +13,10 @@ This project reads it the way a **complaints, compliance or customer-experience 
 - **Source:** [Consumer Complaint Database](https://www.consumerfinance.gov/data-research/consumer-complaints/), US Consumer Financial Protection Bureau. Public domain (a US Government work); no key or sign-up.
 - **Bulk file:** [`complaints.csv.zip`](https://files.consumerfinance.gov/ccdb/complaints.csv.zip), 371 MB zipped (5.9 GB unzipped), 19,397,176 complaints from December 2011 to 23 November 2026, 15 columns ([field definitions](https://cfpb.github.io/api/ccdb/fields.html)). The copy used here is dated 24 November 2026; its SHA-256 is in [`data/SNAPSHOT.json`](data/SNAPSHOT.json).
 - **Two 2026 changes** ([release notes](https://cfpb.github.io/api/ccdb/release-notes.html)): the CFPB **removed consumers' complaint narratives** in September 2026, so there is no free text, only the structured fields; and API exports are now capped at 100,000 complaints, so this project uses the full bulk file.
-- **What is committed** (both rebuilt byte for byte from that bulk file, SHA-256 pinned in [`complaints/source.py`](complaints/source.py)):
+- **What is committed** (all three rebuilt byte for byte from that bulk file, SHA-256 pinned in [`complaints/source.py`](complaints/source.py)):
   - [`data/complaints_fy2026.parquet`](data/complaints_fy2026.parquet) (5.8 MB): one row per complaint received in US federal fiscal year 2026 (1 October 2025 to 30 September 2026) about any product except credit reporting: **658,443 complaints**.
   - [`data/monthly_by_product.csv`](data/monthly_by_product.csv): complaints per month and product for the whole history, credit reporting included.
+  - [`data/monthly_by_company.parquet`](data/monthly_by_company.parquet) (1.4 MB, added in Part 2): complaints per month, product, sub-product and company for the whole history (557,414 rows). The sub-product maps old product names onto current ones; the company shows who is behind a surge.
 
 **Why leave credit reporting out of the row-level data?** It was 90.6% of all complaints in FY2026 (6.3 million). It is a different kind of complaint, about consumer reports rather than a product the consumer chose, and at that size it would swamp every other product. It stays in the monthly history.
 
@@ -67,7 +68,7 @@ uv venv .venv && uv pip install -r requirements-lock.txt   # or: python -m venv 
 .venv/bin/python -m pytest -q                               # tests
 ```
 
-`python scripts/download_data.py --rebuild` downloads the current bulk file (371 MB, about 6.3 GB of disk while it runs) and rebuilds both data files. The CFPB replaces the file every day and companies keep answering recent complaints, so a later rebuild gives slightly different files: the script reports both hashes, and the analysis stays on the pinned snapshot.
+`python scripts/download_data.py --rebuild` downloads the current bulk file (371 MB, about 6.3 GB of disk while it runs) and rebuilds the three data files. The CFPB replaces the file every day and companies keep answering recent complaints, so a later rebuild gives slightly different files: the script reports both hashes, and the analysis stays on the pinned snapshot.
 
 ## Project layout
 
