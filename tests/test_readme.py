@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import re
 
+import pandas as pd
 import pytest
 
 from complaints import load, profile as P, source
@@ -106,11 +107,12 @@ def test_links_resolve():
 
 
 def test_status_and_chart_links():
-    assert "**Status: in progress. Parts 1 to 3 of 5 are done" in README
+    assert "**Status: in progress. Parts 1 to 4 of 5 are done" in README
     charts = re.findall(r"\(results/charts/([^)]+\.png)\)", README)
     assert charts == ["01_history_by_month.png", "02_fy2026_by_product.png",
                       "05_products_by_month.png", "07_growth_with_and_without_spikes.png",
-                      "10_relief_against_peers.png", "11_relief_by_month.png"]
+                      "10_relief_against_peers.png", "11_relief_by_month.png",
+                      "13_monitor_items_per_week.png", "14_monitor_examples.png"]
     for c in charts:
         assert (source.ROOT / "results" / "charts" / c).exists()
 
@@ -285,3 +287,71 @@ def test_part3_late(part3):
         f"{pct(part3['sl_ex'])} of student-loan responses were late, not {pct(bp.loc[T.STUDENT, 'late_rate'])}",
         f"{ls['large_zero']} of the {ls['large']} large companies were never late")
     assert list(lt["company"].head(2)) == ["MOHELA", part3["fsa"]]
+
+
+# ---------------------------------------------------------------- Part 4
+
+@pytest.fixture(scope="module")
+def part4():
+    from complaints import monitor as M, response as R
+    con = M.connect()
+    base = M.volume(con)
+    g = M.flag(base)
+    e = M.episodes(M.alerts(g))
+    vs = M.volume_summary(g, M.alerts(g), e)
+    rc = M.repeats_check(con, e)
+    o = pd.concat([M.outcomes(con, m) for m in M.METRICS], ignore_index=True)
+    oe = M.outcome_episodes(o)
+    return dict(M=M, R=R, con=con, e=e, vs=vs, rc=rc, o=o, oe=oe, os=M.outcome_summary(o, oe),
+                pw=M.per_week(e, oe), det=M.surge_detection(g).set_index("baseline_band"),
+                sens=M.sensitivity(base))
+
+
+def test_part4_method(part4):
+    M, vs, os_ = part4["M"], part4["vs"], part4["os"]
+    has(f"for each of the {n(vs['series'])} series", f"for each of the {os_['companies']} companies with 100+",
+        f"The backtest covers the {vs['weeks']} weeks from December 2025 to September 2026")
+    assert (M.RATIO, M.WARMUP, M.MIN_EXCESS, M.RECENT, M.BEFORE, M.SHIFT_MIN) == (2.0, 8, 20, 4, 12, 0.20)
+    assert vs["first_week"].strftime("%Y-%m") == "2025-12" and vs["last_week"].strftime("%Y-%m") == "2026-09"
+    assert len(part4["sens"]) - 1 == 6 and "at six other settings" in README
+
+
+def test_part4_workload(part4):
+    pw, vs, os_, e, oe = part4["pw"], part4["vs"], part4["os"], part4["e"], part4["oe"]
+    has(f"would have sent {pw['total'].sum()} items in {len(pw)} weeks ({vs['items']} volume surges, "
+        f"{os_['episodes']} outcome shifts): about {pw['total'].mean():.1f} a week, never more than "
+        f"{pw['total'].max()}, with {(pw['total'] == 0).sum()} quiet weeks")
+    per_company = pd.concat([e["company"], oe["company"]]).value_counts()
+    assert per_company.max() == 5 and "No company would have had more than 5 all year" in README
+
+
+def test_part4_surges_and_repeats(part4):
+    vs, e, rc = part4["vs"], part4["e"], part4["rc"]
+    has(f"{vs['fell_back']} of the {vs['episodes']} surge episodes fell back below the alert level within 4 weeks; "
+        f"{vs['stayed_high']} stayed high")
+    r = e[(e["company"] == "Rocket Mortgage, LLC") & (e["issue"] == "Trouble during payment process")].iloc[0]
+    assert r["after"] == "stayed high"
+    has(f"was {r['after_median'] / r['baseline']:.1f} times the old level")
+    lost = vs["episodes"] - rc["survive"]
+    has(f"**{lost} of the {vs['episodes']} surges do not survive without identical repeat complaints.** In those, "
+        f"{pct(rc['lost_repeat_share'], 0)} of the complaints are repeats, against {pct(rc['kept_repeat_share'], 0)}",
+        f"Repeats are {pct(vs['repeats'] / vs['complaints'])} of complaints but "
+        f"{pct(vs['alert_repeats'] / vs['alert_complaints'])} of the complaints in alert weeks",
+        f"{lost} of the {vs['episodes']} surges here would not have alerted without them")
+    bureaus = {"EQUIFAX, INC.", "Experian Information Solutions Inc.", "TRANSUNION INTERMEDIATE HOLDINGS, INC."}
+    b = e[e["company"].isin(bureaus)]
+    has(f"**{vs['shared_episodes']} of the {vs['episodes']} episodes are shared",
+        f"credit bureaus account for {len(b)}, on just two issues")
+    assert b["issue"].nunique() == 2
+
+
+def test_part4_outcomes_and_detection(part4):
+    os_, det, M, R, con, o = part4["os"], part4["det"], part4["M"], part4["R"], part4["con"], part4["o"]
+    has(f"It flagged {os_['relief']['episodes']} shifts in relief and {os_['late']['episodes']} in lateness, "
+        f"including all {len(R.shifts(R.halves(con)))} companies")
+    lag = M.detection_lag(o, "CL Holdings LLC")
+    assert lag["change_week"] == pd.Timestamp("2026-04-27") and lag["lag_weeks"] == 1
+    has("began in the week of 27 April 2026 and is flagged the week after")
+    assert det.loc["1-4", "caught_4x"] < 0.02                            # "almost never"
+    for band in ("20-49", "50+"):
+        assert 0.4 <= det.loc[band, "caught_1x"] <= 0.6 and det.loc[band, "caught_2x"] == 1
