@@ -106,10 +106,11 @@ def test_links_resolve():
 
 
 def test_status_and_chart_links():
-    assert "**Status: in progress. Parts 1 and 2 of 5 are done" in README
+    assert "**Status: in progress. Parts 1 to 3 of 5 are done" in README
     charts = re.findall(r"\(results/charts/([^)]+\.png)\)", README)
     assert charts == ["01_history_by_month.png", "02_fy2026_by_product.png",
-                      "05_products_by_month.png", "07_growth_with_and_without_spikes.png"]
+                      "05_products_by_month.png", "07_growth_with_and_without_spikes.png",
+                      "10_relief_against_peers.png", "11_relief_by_month.png"]
     for c in charts:
         assert (source.ROOT / "results" / "charts" / c).exists()
 
@@ -200,3 +201,87 @@ def test_part2_issues_and_repeats(part2):
     assert tuple(t10.loc["CL Holdings LLC"]) == (1, 2)
     assert tuple(t10.loc["ENCORE CAPITAL GROUP INC."]) == (4, 7)
     has("CL Holdings drops from first to second and Encore Capital from fourth to seventh")
+
+
+# ---------------------------------------------------------------- Part 3
+
+@pytest.fixture(scope="module")
+def part3():
+    from complaints import response as R, taxonomy as T
+    con = R.connect()
+    bp = R.by_product(con).set_index("product")
+    tot = R.totals(con)
+    ce = R.company_expected(con)
+    h = R.halves(con)
+    lead = h.iloc[0]
+    hx = h[h["company"] != lead["company"]]
+    lm = R.company_months(con, lead["company"])
+    m = R.by_month(con)
+    lt = R.late_by_company(con)
+    spr = R.spread_by_product(con).set_index("product")
+    ex = R.issue_spread(con, T.DEBT_COLLECTION, "Attempts to collect debt not owed")
+    lead_dc = con.execute(f"""SELECT avg(CAST(product = '{T.DEBT_COLLECTION}' AS DOUBLE)) FROM responses
+                             WHERE company_merged = '{lead["company"]}'""").fetchone()[0]
+    fsa = "Servicer under contract with Federal Student Aid"
+    sl_ex = con.execute(f"""SELECT avg(late) FROM responses WHERE product = '{T.STUDENT}'
+                           AND company_merged NOT IN ('MOHELA', '{fsa}')""").fetchone()[0]
+    return dict(R=R, T=T, con=con, bp=bp, tot=tot, ce=ce, cs=R.chance_summary(ce), me=R.mix_effect(ce), h=h,
+                lead=lead, hx=hx, lm=lm, m=m, lt=lt, ls=R.late_summary(lt), spr=spr, ex=ex, lead_dc=lead_dc,
+                fsa=fsa, sl_ex=sl_ex, rc=R.repeats_check(con))
+
+
+def test_part3_outcomes(part3):
+    t, bp, T = part3["tot"], part3["bp"], part3["T"]
+    dc, cc = bp.loc[T.DEBT_COLLECTION], bp.loc[T.CREDIT_CARD]
+    has(f"{n(t['final_responses'])} final responses", f"the {n(bp['in_progress'].sum())} still in progress",
+        f"**One complaint in five ends with relief**: {pct(t['relief_rate'])}, and {pct(t['monetary_rate'])} with money",
+        f"for credit cards {pct(cc['monetary_rate'] / cc['relief_rate'], 0)} of it is monetary",
+        f"({n(dc['monetary_relief'])} of {n(dc['monetary_relief'] + dc['non_monetary_relief'])})")
+    assert 0.18 <= t["relief_rate"] <= 0.22          # "one in five"
+
+
+def test_part3_peers(part3):
+    cs, me, spr, ex, T, R = part3["cs"], part3["me"], part3["spr"], part3["ex"], part3["T"], part3["R"]
+    has(f"The {cs['companies']} companies with 100 or more final responses",
+        f"{cs['outside_998']} of the {cs['companies']} are outside the 99.8% limits, where chance alone would put "
+        f"about one: {cs['below']} below their peers and {cs['above']} above",
+        f"goes from {100 * me['mean_abs_raw']:.1f} to {100 * me['mean_abs_adjusted']:.1f} points")
+    assert round(cs["chance_998"]) == 1
+    fl = me["flips"]
+    assert len(fl) == 6 and "turns six mortgage, student-loan and personal-loan companies" in README
+    assert set(fl["main_product"]) == {T.MORTGAGE, T.STUDENT, T.PAYDAY}
+    assert (fl["raw_difference"] <= -0.05).all() and (fl["difference"] > 0).all()
+    d = spr.loc[T.DEBT_COLLECTION]
+    has(f"{int(d['almost_never'])} of {int(d['companies'])} collectors closed under 2% of complaints with relief and "
+        f"{int(d['almost_always'])} over 90%",
+        f"{int((ex['rate'] < R.LOW).sum())} of {len(ex)} collectors are under 2% and "
+        f"{int((ex['rate'] > R.HIGH).sum())} over 90%")
+    rc = part3["rc"]
+    has(f"{rc['same_verdict']} of {rc['both']} companies keep the same verdict")
+
+
+def test_part3_change_in_the_year(part3):
+    h, hx, lead, lm, m, R = part3["h"], part3["hx"], part3["lead"], part3["lm"], part3["m"], part3["R"]
+    r1, r2 = R.half_rates(h)
+    pre, post = lm[lm["month"] < "2026-05"], lm[lm["month"] >= "2026-05"]
+    has(f"Relief went from {pct(r1)} (October to March) to {pct(r2)} (April to September)",
+        f"stayed between {pct(m['expected_rate'].min())} and {pct(m['expected_rate'].max())}",
+        f"{lead['company']} ({pct(part3['lead_dc'], 0)} of its complaints are about debt collection) closed "
+        f"{pct(pre['relief'].sum() / pre['final_responses'].sum())} of its complaints with relief up to April and "
+        f"{pct(post['relief'].sum() / post['final_responses'].sum())} from May",
+        f"flat ({pct(hx['relief1'].sum() / hx['n1'].sum())} to {pct(hx['relief2'].sum() / hx['n2'].sum())})",
+        f"by {100 * lead['contribution']:.1f} points")
+    assert lead["contribution"] > r2 - r1            # "more than all of it" in the report
+    assert lead["company"] == "CL Holdings LLC"
+
+
+def test_part3_late(part3):
+    lt, ls, t, bp, T = part3["lt"], part3["ls"], part3["tot"], part3["bp"], part3["T"]
+    mo, fsa = lt.set_index("company").loc["MOHELA"], lt.set_index("company").loc[part3["fsa"]]
+    has(f"{pct(t['late_rate'])} of final responses were late",
+        f"{ls['companies_for_half']} companies make up half of them",
+        f"MOHELA ({pct(mo['late_rate'], 0)} of its {n(mo['final_responses'])} late)",
+        f"({pct(fsa['late_rate'], 0)} of {n(fsa['final_responses'])}) make up {pct(ls['top2_share'], 0)}",
+        f"{pct(part3['sl_ex'])} of student-loan responses were late, not {pct(bp.loc[T.STUDENT, 'late_rate'])}",
+        f"{ls['large_zero']} of the {ls['large']} large companies were never late")
+    assert list(lt["company"].head(2)) == ["MOHELA", part3["fsa"]]
