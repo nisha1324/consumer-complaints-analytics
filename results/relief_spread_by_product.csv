@@ -1,0 +1,11 @@
+product,companies,responses,almost_never,almost_always,median_company,p25,p75,pooled
+Debt collection,259,297242,190,8,0.000000,0.000000,0.028736,0.247603
+Credit card,50,92311,9,0,0.188499,0.049641,0.276387,0.275796
+Checking or savings account,63,83785,19,0,0.085134,0.007466,0.234692,0.188840
+"Money transfer, virtual currency, or money service",32,35856,11,0,0.072688,0.000298,0.129181,0.148650
+Mortgage,48,28256,28,0,0.004283,0.000000,0.120678,0.045796
+Vehicle loan or lease,45,21840,21,0,0.038911,0.000000,0.140625,0.091255
+Student loan,12,18589,9,0,0.000000,0.000000,0.023453,0.009360
+"Payday loan, title loan, personal loan, or advance loan",41,11256,21,0,0.017391,0.000000,0.082759,0.044598
+Prepaid card,14,5567,7,0,0.023077,0.000000,0.313301,0.198132
+Debt or credit management,6,1394,2,0,0.173286,0.022017,0.325244,0.218795
