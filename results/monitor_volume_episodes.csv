@@ -1,0 +1,50 @@
+company,product,issue,start,end,weeks,baseline,peak,complaints,excess,repeats,shared,companies_on_issue,after_median,after,repeat_share
+"Bread Financial Holdings, Inc.",Debt collection,Took or threatened to take negative or legal action,2025-12-08,2025-12-08,1,52.000000,130,130,78.000000,38.000000,True,4,46.500000,fell back,0.292308
+"CCS Financial Services, Inc.",Debt collection,Took or threatened to take negative or legal action,2025-12-08,2025-12-08,1,46.000000,92,92,46.000000,16.000000,True,4,49.500000,fell back,0.173913
+"CAINE & WEINER COMPANY, INC.",Debt collection,Took or threatened to take negative or legal action,2025-12-08,2025-12-08,1,19.000000,48,48,29.000000,1.000000,True,4,23.500000,fell back,0.020833
+TD BANK US HOLDING COMPANY,Debt collection,Took or threatened to take negative or legal action,2025-12-08,2025-12-08,1,11.000000,39,39,28.000000,3.000000,True,4,15.000000,fell back,0.076923
+WELLS FARGO & COMPANY,Debt collection,Took or threatened to take negative or legal action,2025-12-15,2025-12-15,1,33.000000,77,77,44.000000,7.000000,True,2,42.500000,fell back,0.090909
+Chime Financial Inc,Checking or savings account,Closing an account,2025-12-15,2025-12-15,1,15.500000,54,54,38.500000,1.000000,False,1,14.000000,fell back,0.018519
+GOLDMAN SACHS BANK USA,Debt collection,Took or threatened to take negative or legal action,2025-12-15,2025-12-15,1,19.000000,41,41,22.000000,0.000000,True,2,23.000000,fell back,0.000000
+Experian Information Solutions Inc.,Credit card,Incorrect information on your report,2025-12-29,2026-01-19,4,8.500000,65,197,158.500000,15.000000,True,3,14.000000,fell back,0.076142
+"EQUIFAX, INC.",Credit card,Incorrect information on your report,2025-12-29,2026-01-19,4,14.500000,59,185,120.500000,12.000000,True,3,15.000000,fell back,0.064865
+"Paypal Holdings, Inc","Money transfer, virtual currency, or money service","Managing, opening, or closing your mobile wallet account",2025-12-29,2026-01-05,2,13.500000,42,78,50.000000,1.000000,False,1,20.500000,fell back,0.012821
+"Paypal Holdings, Inc","Money transfer, virtual currency, or money service",Trouble accessing funds in your mobile or digital wallet,2025-12-29,2025-12-29,1,30.000000,73,73,43.000000,1.000000,False,1,56.000000,fell back,0.013699
+"TRANSUNION INTERMEDIATE HOLDINGS, INC.",Credit card,Incorrect information on your report,2026-01-05,2026-01-19,3,7.500000,45,123,98.500000,10.000000,True,3,13.500000,fell back,0.081301
+"EQUIFAX, INC.",Debt collection,Written notification about debt,2026-01-05,2026-01-05,1,77.000000,154,154,77.000000,4.000000,True,2,79.000000,fell back,0.025974
+"TRANSUNION INTERMEDIATE HOLDINGS, INC.",Debt collection,Written notification about debt,2026-01-05,2026-01-05,1,67.000000,138,138,71.000000,4.000000,True,2,106.500000,fell back,0.028986
+"Nelnet, Inc.",Student loan,Dealing with your lender or servicer,2026-01-05,2026-01-05,1,26.000000,58,58,32.000000,0.000000,False,1,37.000000,fell back,0.000000
+"Credit Karma, LLC",Checking or savings account,Managing an account,2026-01-19,2026-01-19,1,2.500000,26,26,23.500000,0.000000,False,1,11.500000,stayed high,0.000000
+"National Credit Adjusters, LLC",Debt collection,Attempts to collect debt not owed,2026-01-19,2026-01-19,1,16.500000,37,37,20.500000,1.000000,False,1,27.000000,fell back,0.027027
+CL Holdings LLC,Debt collection,Attempts to collect debt not owed,2026-02-02,2026-02-02,1,134.000000,276,276,142.000000,10.000000,False,1,302.500000,stayed high,0.036232
+CL Holdings LLC,Debt collection,False statements or representation,2026-02-02,2026-02-02,1,46.000000,136,136,90.000000,8.000000,False,1,62.500000,fell back,0.058824
+Servicer under contract with Federal Student Aid,Debt collection,Took or threatened to take negative or legal action,2026-02-09,2026-02-09,1,15.000000,50,50,35.000000,37.000000,False,1,24.000000,fell back,0.740000
+NAVY FEDERAL CREDIT UNION,Checking or savings account,Problem caused by your funds being low,2026-02-16,2026-02-16,1,5.000000,56,56,51.000000,0.000000,False,1,3.500000,fell back,0.000000
+"Rocket Mortgage, LLC",Mortgage,Trouble during payment process,2026-02-23,2026-03-16,4,23.000000,89,281,186.000000,0.000000,False,1,55.000000,stayed high,0.000000
+"Block, Inc.","Money transfer, virtual currency, or money service",Other transaction problem,2026-02-23,2026-03-02,2,19.500000,63,106,66.000000,2.000000,False,1,24.500000,fell back,0.018868
+"Harris & Harris, Ltd.",Debt collection,Attempts to collect debt not owed,2026-02-23,2026-02-23,1,26.500000,56,56,29.500000,0.000000,False,1,35.500000,fell back,0.000000
+TClub Inc,"Money transfer, virtual currency, or money service",Money was not available when promised,2026-02-23,2026-02-23,1,1.500000,29,29,27.500000,1.000000,False,1,3.000000,stayed high,0.034483
+Servicer under contract with Federal Student Aid,Debt collection,Took or threatened to take negative or legal action,2026-02-23,2026-02-23,1,15.000000,36,36,21.000000,26.000000,False,1,32.500000,stayed high,0.722222
+CL Holdings LLC,Debt collection,Attempts to collect debt not owed,2026-03-02,2026-03-02,1,188.500000,455,455,266.500000,36.000000,True,2,374.500000,fell back,0.079121
+TrueAccord Corp.,Debt collection,Attempts to collect debt not owed,2026-03-02,2026-03-02,1,20.500000,41,41,20.500000,0.000000,True,2,40.000000,fell back,0.000000
+"Paypal Holdings, Inc","Money transfer, virtual currency, or money service",Fraud or scam,2026-03-09,2026-03-09,1,31.000000,65,65,34.000000,36.000000,False,1,29.500000,fell back,0.553846
+World Acceptance Corporation,Debt collection,Attempts to collect debt not owed,2026-03-09,2026-03-09,1,7.500000,29,29,21.500000,4.000000,False,1,18.500000,stayed high,0.137931
+Servicer under contract with Federal Student Aid,Debt collection,Took or threatened to take negative or legal action,2026-03-23,2026-03-23,1,31.000000,122,122,91.000000,100.000000,True,2,73.500000,stayed high,0.819672
+"Bread Financial Holdings, Inc.",Debt collection,Took or threatened to take negative or legal action,2026-03-23,2026-03-23,1,34.500000,73,73,38.500000,24.000000,True,2,49.000000,fell back,0.328767
+"Waypoint Resource Group, LLC",Debt collection,Attempts to collect debt not owed,2026-03-23,2026-03-23,1,0.000000,22,22,22.000000,0.000000,False,1,19.500000,stayed high,0.000000
+WELLS FARGO & COMPANY,Checking or savings account,Problem caused by your funds being low,2026-03-30,2026-03-30,1,18.000000,38,38,20.000000,0.000000,False,1,24.000000,fell back,0.000000
+Servicer under contract with Federal Student Aid,Debt collection,Took or threatened to take negative or legal action,2026-04-06,2026-04-13,2,32.500000,103,199,134.000000,154.000000,False,1,79.000000,stayed high,0.773869
+"Affirm Holdings, Inc",Debt collection,Took or threatened to take negative or legal action,2026-04-27,2026-04-27,1,19.000000,41,41,22.000000,8.000000,False,1,25.000000,fell back,0.195122
+CAPITAL ONE FINANCIAL CORPORATION,Debt collection,Took or threatened to take negative or legal action,2026-05-04,2026-05-04,1,16.000000,37,37,21.000000,1.000000,False,1,31.000000,fell back,0.027027
+"United Collection Bureau, Inc.",Debt collection,Attempts to collect debt not owed,2026-06-01,2026-06-01,1,2.500000,47,47,44.500000,25.000000,False,1,3.000000,fell back,0.531915
+CAPITAL ONE FINANCIAL CORPORATION,Debt collection,Took or threatened to take negative or legal action,2026-06-08,2026-06-08,1,28.000000,60,60,32.000000,1.000000,False,1,49.500000,fell back,0.016667
+"EQUIFAX, INC.",Debt collection,Written notification about debt,2026-06-15,2026-06-29,3,25.500000,64,178,97.500000,7.000000,True,3,22.000000,fell back,0.039326
+Experian Information Solutions Inc.,Debt collection,Written notification about debt,2026-06-22,2026-06-29,2,49.000000,144,252,153.500000,4.000000,True,3,55.500000,fell back,0.015873
+"TRANSUNION INTERMEDIATE HOLDINGS, INC.",Debt collection,Written notification about debt,2026-06-22,2026-06-22,1,52.000000,149,149,97.000000,4.000000,True,3,62.000000,fell back,0.026846
+"EQUIFAX, INC.",Debt collection,Written notification about debt,2026-07-13,2026-07-13,1,27.000000,54,54,27.000000,3.000000,False,1,18.500000,fell back,0.055556
+CL Holdings LLC,Debt collection,False statements or representation,2026-09-07,2026-09-21,3,32.500000,78,227,129.000000,27.000000,True,2,,too recent,0.118943
+Resurgent Capital Services L.P.,Debt collection,False statements or representation,2026-09-07,2026-09-07,1,61.500000,136,136,74.500000,35.000000,True,2,,too recent,0.257353
+"Block, Inc.","Money transfer, virtual currency, or money service",Other transaction problem,2026-09-07,2026-09-14,2,18.000000,42,81,45.000000,2.000000,False,1,,too recent,0.024691
+Self Financial Inc.,Debt collection,Attempts to collect debt not owed,2026-09-14,2026-09-21,2,9.500000,32,64,45.000000,0.000000,False,1,,too recent,0.000000
+CREDIT ACCEPTANCE CORPORATION,Vehicle loan or lease,Managing the loan or lease,2026-09-21,2026-09-21,1,6.000000,43,43,37.000000,2.000000,False,1,,too recent,0.046512
+CREDIT ACCEPTANCE CORPORATION,Vehicle loan or lease,Repossession,2026-09-21,2026-09-21,1,5.500000,28,28,22.500000,0.000000,False,1,,too recent,0.000000
