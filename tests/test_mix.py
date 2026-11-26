@@ -245,15 +245,19 @@ def test_report_regenerates_byte_for_byte(tmp_path):
 
 def test_every_committed_result_comes_from_a_report(tmp_path):
     """Each file in results/ is written by exactly one report, and each report links its own charts."""
-    from scripts import profile_report, response_report
+    from scripts import monitor_report, profile_report, response_report
     made = {}
     for name, mod, report in (("p1", profile_report, "PROFILE.md"), ("p2", sources_report, sources_report.REPORT),
-                              ("p3", response_report, response_report.REPORT)):
+                              ("p3", response_report, response_report.REPORT),
+                              ("p4", monitor_report, monitor_report.REPORT)):
         d = tmp_path / name
         mod.write(d)
         made[name] = {p.relative_to(d) for p in d.rglob("*") if p.is_file()}
         links = set(re.findall(r"\]\((charts/[^)]+\.png)\)", (d / report).read_text()))
         assert links == {str(p) for p in made[name] if p.suffix == ".png"}
-    assert not made["p1"] & made["p2"] and not made["p1"] & made["p3"] and not made["p2"] & made["p3"]
+    names = sorted(made)
+    for i, x in enumerate(names):
+        for y in names[i + 1:]:
+            assert not made[x] & made[y], (x, y)
     committed = {p.relative_to(RESULTS) for p in RESULTS.rglob("*") if p.is_file()}
-    assert committed == made["p1"] | made["p2"] | made["p3"]
+    assert committed == set().union(*made.values())
