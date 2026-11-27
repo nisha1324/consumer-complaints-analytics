@@ -2,11 +2,39 @@
 
 [![CI](https://github.com/nisha1324/consumer-complaints-analytics/actions/workflows/ci.yml/badge.svg)](https://github.com/nisha1324/consumer-complaints-analytics/actions/workflows/ci.yml)
 
-**Status: in progress. Parts 1 to 4 of 5 are done (data profile; where complaints come from; how companies respond; an early-warning monitor).**
+**Status: complete.** Four parts (data profile; where complaints come from; how companies respond; an early-warning monitor) and a summary, each part with its own report and charts, all regenerated and tested by GitHub Actions on every push.
 
 Every complaint a US consumer files with the Consumer Financial Protection Bureau (CFPB) about a bank, lender, card issuer or debt collector is sent to the company for a response and then published. That makes the CFPB's Consumer Complaint Database one of the largest public records of what goes wrong between financial companies and their customers.
 
 This project reads it the way a **complaints, compliance or customer-experience team** at a lender would: which products and problems draw complaints, how companies answer them (relief, timeliness), and how one company compares with its peers once size and product mix are allowed for. It is SQL (DuckDB) and Python, on real public data, with no machine learning.
+
+## Summary
+
+658,443 complaints from US fiscal year 2026, read against 19,397,176 since 2011. The thread through the project: **a complaint figure for the whole market is often one or two companies, so find the company before reading the trend.** Five findings; every figure below comes from the part named beside it.
+
+- **Spikes hide the trend, and a spike is usually one company.** The history has 24 spike months; in 19 of them one company makes up half or more of the extra complaints, and in all 24 the two largest companies do. Counted as filed, money-transfer complaints fell 50.1% from FY2025 to FY2026; with the spike months set to their baseline they rose 37.1%. Underneath, complaints grew in 9 of 10 products. *(Part 2)*
+- **Relief rates do not compare well across companies.** 381 of the 419 companies with 100 or more final responses are outside the 99.8% chance limits against peers with the same products and issues, where chance alone would put about one. Allowing for mix barely narrows the gap (18.6 to 17.0 points). In debt collection 190 of 259 collectors closed under 2% of complaints with relief and 8 over 90%, which looks like a recording habit as much as an outcome. *(Part 3)*
+- **One company moved the market's relief rate.** Relief went from 18.3% (October to March) to 21.2% (April to September). CL Holdings LLC closed 1.5% of its complaints with relief up to April and 90.4% from May; without it the rate is flat (18.9% to 18.8%). *(Part 3)*
+- **Late responses are a few companies' problem.** 3.8% of final responses were late, and 8 companies make up half of them. Without MOHELA and the entry "Servicer under contract with Federal Student Aid", 1.2% of student-loan responses were late, not 34.4%. *(Part 3)*
+- **A weekly monitor is cheap to run and to staff.** Through FY2026 it would have sent 61 items in 43 weeks, about 1.4 a week and never more than 6. 12 of its 49 surges do not survive without identical repeat complaints, 20 are shared with another company on the same issue in the same week, and it flagged CL Holdings' change the week after it began. *(Part 4)*
+
+![Relief by month, with and without one company](results/charts/11_relief_by_month.png)
+
+### What a complaints team should take from it
+
+Ranked by how directly the figures support them. They are written for a complaints, compliance or customer-experience team at a lender. The data cannot say which company serves its customers best, because it has no customer counts and companies seem to record relief differently.
+
+| # | Recommendation | For | Evidence |
+| ---: | --- | --- | --- |
+| 1 | **Check for a spike before reading any year-on-year change in complaints, find the company behind it, and report the figure both with and without it.** | Complaints reporting analysts, board reporting | Part 2: money transfers −50.1% as counted, +37.1% without spike months; one company is half or more of the extra complaints in 19 of 24 spikes |
+| 2 | **Compare your relief rate with your own history, not with other companies' published rates.** Compare timeliness with peers, with the few companies that dominate it split out. | Compliance, customer-experience leads | Part 3: 381 of 419 companies outside the 99.8% limits; 190 of 259 collectors under 2% relief and 8 over 90%; 8 companies make up half of late responses |
+| 3 | **Run a weekly monitor on complaints per company, product and issue, and on relief and late rates.** | Complaints operations | Part 4: 61 items in 43 weeks, about 1.4 a week, never more than 6; it flagged CL Holdings' change the week after it began |
+| 4 | **Remove identical repeat complaints before alerting or ranking.** | Data and analytics team | Part 4: 12 of 49 surges do not survive without them. Part 2: without them CL Holdings drops from first to second and Encore Capital from fourth to seventh |
+| 5 | **Before treating a surge as your own failure, check whether competitors alerted on the same issue that week.** | Complaints operations, risk | Part 4: 20 of 49 surge episodes are shared; the three credit bureaus account for 9, on just two issues |
+| 6 | **Explain any step change in your own outcome mix before it reaches a board report.** | Compliance, internal audit | Part 3: CL Holdings went from 1.5% to 90.4% relief and moved the all-company rate by 3.2 points |
+| 7 | **Start root-cause work with each product's top issue.** | Product owners, operations | Part 2: debts people say they don't owe are 43.3% of debt collection; managing an account is 58.1% of bank accounts |
+
+What this analysis cannot do is in [Limits](#limits). The three that matter most: complaints are not a sample of customers and the data has no customer counts, so nothing here is a complaint rate per customer; relief is the company's own description of its response, apparently recorded differently from company to company, and not verified by the CFPB; and the monitor's backtest has one year and no list of real incidents, so it measures workload and what size of surge is caught, not how many alerts were right. Where a spike lines up with a public event, timing alone does not show cause.
 
 ## The data
 
@@ -30,7 +58,7 @@ This project reads it the way a **complaints, compliance or customer-experience 
 | 2 | **Where complaints come from**: old product names mapped to current ones, spike months and the companies behind them, growth with and without spikes, the issue mix, and whether the repeats change anything | done: [`results/WHERE_COMPLAINTS_COME_FROM.md`](results/WHERE_COMPLAINTS_COME_FROM.md) |
 | 3 | **How companies respond**: relief and timeliness by product and company, compared with peers after allowing for product and issue mix, with limits for what chance alone would produce | done: [`results/HOW_COMPANIES_RESPOND.md`](results/HOW_COMPANIES_RESPOND.md) |
 | 4 | **Early-warning monitor**: weekly surges per company and issue against each series' own past weeks, and step changes in each company's relief and late rates, backtested on FY2026 | done: [`results/EARLY_WARNING_MONITOR.md`](results/EARLY_WARNING_MONITOR.md) |
-| 5 | **Write-up**: summary, ranked recommendations and limitations | next |
+| 5 | **Write-up**: summary, ranked recommendations and limitations | done: [Summary](#summary) |
 
 The project was first planned with an LLM-assisted categoriser of complaint narratives. The CFPB removed the narratives in September 2026, before this project started, so that part cannot be built on this source; Part 4 is a monitor on the structured fields instead.
 
@@ -148,7 +176,7 @@ tests/             the builder, the profile queries, the spike rule, the peer co
                    regeneration of every report
 ```
 
-## Limits (so far)
+## Limits
 
 - Complaints are not a sample of customers: they come from people who chose to complain to the CFPB, and complaints the CFPB refers to other regulators (for example about banks and credit unions with under $10 billion in assets) are not published.
 - The data has no customer counts, so complaint volumes cannot be turned into complaint rates per customer.

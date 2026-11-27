@@ -107,9 +107,11 @@ def test_links_resolve():
 
 
 def test_status_and_chart_links():
-    assert "**Status: in progress. Parts 1 to 4 of 5 are done" in README
+    assert "**Status: complete.** Four parts" in README and "in progress" not in README.split("\n## ")[0]
+    assert "| 5 | **Write-up**: summary, ranked recommendations and limitations | done: [Summary](#summary) |" in README
+    assert "next |" not in README and "Limits (so far)" not in README
     charts = re.findall(r"\(results/charts/([^)]+\.png)\)", README)
-    assert charts == ["01_history_by_month.png", "02_fy2026_by_product.png",
+    assert charts == ["11_relief_by_month.png", "01_history_by_month.png", "02_fy2026_by_product.png",
                       "05_products_by_month.png", "07_growth_with_and_without_spikes.png",
                       "10_relief_against_peers.png", "11_relief_by_month.png",
                       "13_monitor_items_per_week.png", "14_monitor_examples.png"]
@@ -355,3 +357,106 @@ def test_part4_outcomes_and_detection(part4):
     assert det.loc["1-4", "caught_4x"] < 0.02                            # "almost never"
     for band in ("20-49", "50+"):
         assert 0.4 <= det.loc[band, "caught_1x"] <= 0.6 and det.loc[band, "caught_2x"] == 1
+
+
+# ---------------------------------------------------------------- Summary (Part 5)
+
+def section(start: str, end: str) -> str:
+    a = README.index(start)
+    return README[a:README.index(end, a)]
+
+
+SUMMARY = section("## Summary", "## The data")
+BODY = README.replace(SUMMARY, "")
+
+
+def test_every_summary_figure_matches_the_results(facts, part2, part3, part4):
+    m, sp, g, T2 = facts["manifest"], part2["sp"], part2["gr"], part2["T"]
+    one = int((sp["top_company_share"] >= 0.5).sum())
+    mt = g.loc[T2.MONEY]
+    non_cr = g.drop(index=T2.CREDIT_REPORTING)
+    cs, me, spr, T3, R = part3["cs"], part3["me"], part3["spr"], part3["T"], part3["R"]
+    d = spr.loc[T3.DEBT_COLLECTION]
+    r1, r2 = R.half_rates(part3["h"])
+    lm, hx, lead = part3["lm"], part3["hx"], part3["lead"]
+    pre, post = lm[lm["month"] < "2026-05"], lm[lm["month"] >= "2026-05"]
+    lt, ls, t, bp = part3["lt"], part3["ls"], part3["tot"], part3["bp"]
+    pw, vs, rc, e = part4["pw"], part4["vs"], part4["rc"], part4["e"]
+    lost = vs["episodes"] - rc["survive"]
+    bureaus = {"EQUIFAX, INC.", "Experian Information Solutions Inc.", "TRANSUNION INTERMEDIATE HOLDINGS, INC."}
+    top1 = part2["top1"]
+    statements = [
+        # findings
+        f"{n(m['snapshot_rows'])} complaints from US fiscal year 2026, read against {n(m['bulk_rows'])} since 2011",
+        f"The history has {len(sp)} spike months; in {one} of them one company makes up half or more",
+        f"in all {len(sp)} the two largest companies do",
+        f"money-transfer complaints fell {100 * -mt['change_1y']:.1f}% from FY2025 to FY2026",
+        f"they rose {100 * mt['change_1y_adjusted']:.1f}%",
+        f"complaints grew in {int((non_cr['change_1y_adjusted'] > 0).sum())} of {len(non_cr)} products",
+        f"{cs['outside_998']} of the {cs['companies']} companies with 100 or more final responses are outside the 99.8%",
+        f"({100 * me['mean_abs_raw']:.1f} to {100 * me['mean_abs_adjusted']:.1f} points)",
+        f"{int(d['almost_never'])} of {int(d['companies'])} collectors closed under 2% of complaints with relief and "
+        f"{int(d['almost_always'])} over 90%",
+        f"Relief went from {pct(r1)} (October to March) to {pct(r2)} (April to September)",
+        f"{lead['company']} closed {pct(pre['relief'].sum() / pre['final_responses'].sum())} of its complaints with "
+        f"relief up to April and {pct(post['relief'].sum() / post['final_responses'].sum())} from May",
+        f"flat ({pct(hx['relief1'].sum() / hx['n1'].sum())} to {pct(hx['relief2'].sum() / hx['n2'].sum())})",
+        f"{pct(t['late_rate'])} of final responses were late, and {ls['companies_for_half']} companies make up half",
+        f"{pct(part3['sl_ex'])} of student-loan responses were late, not {pct(bp.loc[T3.STUDENT, 'late_rate'])}",
+        f"it would have sent {pw['total'].sum()} items in {len(pw)} weeks, about {pw['total'].mean():.1f} a week "
+        f"and never more than {pw['total'].max()}",
+        f"{lost} of its {vs['episodes']} surges do not survive without identical repeat complaints, "
+        f"{vs['shared_episodes']} are shared",
+        # recommendations table
+        f"money transfers {signed(mt['change_1y'])} as counted, {signed(mt['change_1y_adjusted'])} without spike months",
+        f"half or more of the extra complaints in {one} of {len(sp)} spikes",
+        f"{cs['outside_998']} of {cs['companies']} companies outside the 99.8% limits",
+        f"{int(d['almost_never'])} of {int(d['companies'])} collectors under 2% relief and {int(d['almost_always'])} over 90%",
+        f"{ls['companies_for_half']} companies make up half of late responses",
+        f"{pw['total'].sum()} items in {len(pw)} weeks, about {pw['total'].mean():.1f} a week, never more than {pw['total'].max()}",
+        f"{lost} of {vs['episodes']} surges do not survive without them",
+        f"{vs['shared_episodes']} of {vs['episodes']} surge episodes are shared",
+        f"the three credit bureaus account for {len(e[e['company'].isin(bureaus)])}, on just two issues",
+        f"went from {pct(pre['relief'].sum() / pre['final_responses'].sum())} to "
+        f"{pct(post['relief'].sum() / post['final_responses'].sum())} relief and moved the all-company rate by "
+        f"{100 * lead['contribution']:.1f} points",
+        f"debts people say they don't owe are {pct(top1.loc[T2.DEBT_COLLECTION, 'share'])} of debt collection",
+        f"managing an account is {pct(top1.loc[T2.CHECKING, 'share'])} of bank accounts",
+    ]
+    missing = [s for s in statements if s not in SUMMARY]
+    assert not missing, missing
+    assert lead["company"] == "CL Holdings LLC"
+    assert list(lt["company"].head(2)) == ["MOHELA", part3["fsa"]]
+    assert top1.loc[T2.CHECKING, "issue"].startswith("Managing an account")
+
+
+def test_summary_statements_in_words(part2, part3, part4):
+    sp = part2["sp"]
+    assert (sp["top_company_share"] + sp["second_company_share"].fillna(0) >= 0.5).all()
+    assert round(part3["cs"]["chance_998"]) == 1                        # "chance alone would put about one"
+    me = part3["me"]
+    assert me["mean_abs_raw"] - me["mean_abs_adjusted"] < 0.02          # "barely narrows the gap"
+    e = part4["e"]
+    bureaus = {"EQUIFAX, INC.", "Experian Information Solutions Inc.", "TRANSUNION INTERMEDIATE HOLDINGS, INC."}
+    assert e[e["company"].isin(bureaus)]["issue"].nunique() == 2       # "on just two issues"
+    lag = part4["M"].detection_lag(part4["o"], "CL Holdings LLC")
+    assert lag["lag_weeks"] == 1                                         # "the week after it began"
+    assert "Encore Capital from fourth to seventh" in SUMMARY and "CL Holdings drops from first to second" in SUMMARY
+
+
+def test_no_summary_figure_is_new():
+    """The summary reports Parts 1 to 4; every number in it must already appear below it."""
+    numbers = set(re.findall(r"(?<![\w.])\d+(?:,\d{3})*(?:\.\d+)?%?", SUMMARY.replace("−", "")))
+    numbers -= {"11", "5", "1", "2", "3", "4", "6", "7"}   # chart file name, table row numbers, "Part n"
+    absent = sorted(x for x in numbers if x not in BODY)
+    assert not absent, absent
+
+
+def test_recommendations_table():
+    rows = [r for r in section("### What a complaints team should take from it", "What this analysis cannot do")
+            .splitlines() if re.match(r"\| \d+ \|", r)]
+    assert [int(r.split("|")[1]) for r in rows] == list(range(1, 8))
+    for r in rows:
+        evidence = r.rstrip(" |").split("|")[-1]
+        assert re.search(r"Part [1-4]", evidence), r
+    assert "[Limits](#limits)" in README and "\n## Limits\n" in README
